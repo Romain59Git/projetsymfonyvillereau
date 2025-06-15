@@ -4,311 +4,288 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}
+        
         <style>
+            * { box-sizing: border-box; }
+            
             html, body {
                 min-height: 100vh;
-                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-                background: transparent !important;
+                margin: 0;
+                font-family: Arial, sans-serif;
+                background: transparent;
             }
-            * { box-sizing: border-box; }
-            .custom-navbar {
-                background: rgba(255,247,240,0.92);
-                box-shadow: 0 4px 24px 0 rgba(220,53,69,0.15), 0 1.5px 8px 0 rgba(0,0,0,0.04);
-                width: 98%;
-                margin: 1.2rem auto 0 auto;
-                border-radius: 18px;
-                position: relative;
-                padding: 0.5rem 0;
-                z-index: 10;
-                backdrop-filter: blur(7px);
+            
+            .navbar {
+                width: 95%;
+                margin: 1.5rem auto 0 auto;
+                background: rgba(255,247,240,0.95);
                 border: 2px solid #dc3545;
-            }
-            .navbar-container {
-                max-width: 1400px;
-                margin: 0 auto;
+                border-radius: 18px;
+                box-shadow: 0 4px 16px rgba(220,53,69,0.10);
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
-                padding: 0 1.5rem;
-                height: 70px;
+                padding: 0.5rem 1.2rem;
+                position: relative;
+                z-index: 10;
             }
+            
             .navbar-logo {
-                min-width: 120px;
-                height: 100%;
                 display: flex;
                 align-items: center;
-                font-weight: 700;
-                font-size: 1.2rem;
-                color: #dc3545;
-                text-decoration: none;
-                letter-spacing: 1px;
-                font-family: 'Segoe UI', Arial, sans-serif;
+                height: 60px;
             }
-            .navbar-logo span { display: none; }
-            .navbar-nav {
+            .navbar-logo img {
+                height: 100%;
+                max-width: 120px;
+                object-fit: contain;
+            }
+            
+            .navbar-links {
                 display: flex;
-                list-style: none;
-                gap: 2rem;
-                margin: 0;
-                padding: 0;
+                gap: 1.2rem;
             }
-            .nav-item { display: inline-block; }
             .nav-link {
+                text-decoration: none;
+                color: #dc3545;
                 font-weight: 500;
                 font-size: 1.1rem;
-                padding: 0.3rem 0.9rem;
-                color: #3a3a3a;
-                text-decoration: none;
-                background: none;
-                border: none;
-                border-bottom: 2px solid transparent;
-                transition: all 0.2s;
-                border-radius: 7px;
-                position: relative;
-                display: block;
+                padding: 0.3rem 0.8rem;
+                border-radius: 6px;
+                transition: background 0.2s, color 0.2s;
             }
-            .nav-link:hover, .nav-link:focus {
-                color: #dc3545;
-                border-bottom: 2px solid #dc3545;
+            .nav-link:hover {
                 background: #ffeaea;
+                color: #a71d2a;
             }
-            .navbar-right {
+            
+            .navbar-actions {
                 display: flex;
                 align-items: center;
-                gap: 0.4rem;
-                margin-left: auto;
+                gap: 0.7rem;
             }
             .search-form {
                 display: flex;
                 align-items: center;
-                gap: 0;
-                margin-right: 0.5rem;
             }
             .search-input {
                 border: 1.5px solid #dc3545;
                 border-radius: 4px 0 0 4px;
-                background-color: #fbeaec;
-                color: #3a3a3a;
+                background: #fff8f3;
+                color: #222;
                 font-size: 1rem;
-                padding: 0.3rem 0.8rem;
-                width: 140px;
-                transition: border 0.2s;
-            }
-            .search-input:focus {
-                border-color: #dc3545;
-                outline: none;
+                padding: 0.3rem 0.7rem;
+                width: 120px;
             }
             .search-btn {
-                background: #ffeaea;
                 border: 1.5px solid #dc3545;
-                color: #dc3545;
-                font-size: 1.2rem;
-                padding: 0.3rem 0.6rem;
                 border-radius: 0 4px 4px 0;
+                background: #ffeaea;
+                color: #dc3545;
+                font-size: 1.1rem;
+                padding: 0.3rem 0.7rem;
                 cursor: pointer;
-                transition: all 0.2s;
-                margin-left: 0;
+                transition: background 0.2s, color 0.2s;
             }
             .search-btn:hover {
                 background: #dc3545;
                 color: #fff;
             }
             .auth-btn {
-                font-weight: 500;
-                font-size: 1rem;
-                padding: 0.3rem 0.9rem;
-                border-radius: 6px;
                 border: 1.5px solid #dc3545;
+                border-radius: 6px;
                 background: #ffeaea;
                 color: #dc3545;
-                transition: all 0.2s;
+                font-size: 1rem;
+                font-weight: 500;
+                padding: 0.3rem 0.9rem;
                 text-decoration: none;
-                margin-left: 0.3rem;
-                display: inline-block;
-                box-shadow: 0 1px 4px rgba(220,53,69,0.04);
+                transition: background 0.2s, color 0.2s;
             }
             .auth-btn:hover {
                 background: #dc3545;
                 color: #fff;
-                border-color: #dc3545;
             }
+            
             .burger {
                 display: none;
                 background: none;
                 border: none;
-                font-size: 2rem;
+                font-size: 2.2rem;
                 color: #dc3545;
-                margin-left: 0.7rem;
                 cursor: pointer;
-                z-index: 200;
+                margin-left: 0.5rem;
+                padding: 0.2rem 0.5rem;
+                border-radius: 8px;
+                transition: background 0.2s;
+                box-shadow: 0 1px 6px rgba(220,53,69,0.07);
             }
+            .burger:hover {
+                background: #ffeaea;
+            }
+            
             @media (max-width: 800px) {
-                .navbar-container {
+                .navbar {
                     flex-wrap: wrap;
-                    padding: 0 0.3rem;
+                    padding: 0.5rem 0.5rem;
                 }
-                .navbar-logo {
-                    min-width: 50px;
-                    font-size: 1rem;
-                }
-                .navbar-nav {
+                .navbar-links, .navbar-actions {
                     display: none;
-                    position: absolute;
-                    top: 100%;
-                    left: 0;
-                    width: 100vw;
-                    background: #fff;
-                    flex-direction: column;
-                    align-items: flex-start;
-                    gap: 0;
-                    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-                    z-index: 100;
-                    padding: 0.5rem 0;
-                }
-                .navbar-nav.active {
-                    display: flex;
-                }
-                .nav-item { width: 100%; }
-                .nav-link {
-                    width: 100%;
-                    padding: 0.7rem 1.2rem;
-                    border-radius: 0;
-                    border: none;
-                    border-bottom: 1px solid #eee;
-                    color: #222;
-                    background: none;
-                    text-align: left;
-                    font-size: 1rem;
-                }
-                .nav-link:hover, .nav-link:focus {
-                    color: #dc3545;
-                    background: #f7f7f7;
-                    border-bottom: 1px solid #dc3545;
                 }
                 .burger {
                     display: block;
                 }
-                .navbar-right {
-                    margin-left: auto;
-                    gap: 0.2rem;
+                .mobile-menu {
+                    display: none;
+                    position: absolute;
+                    top: 100%;
+                    right: 2vw;
+                    left: auto;
+                    width: 92vw;
+                    max-width: 400px;
+                    min-width: 220px;
+                    margin: 0;
+                    background: #fff;
+                    border-radius: 18px;
+                    box-shadow: 0 6px 32px rgba(220,53,69,0.10);
+                    z-index: 20;
+                    padding: 0.7rem 0 0.7rem 0;
+                    border: 1.5px solid #f8d7da;
                 }
-                .search-form {
-                    margin-right: 0.2rem;
+                .mobile-menu.active {
+                    display: block;
                 }
-                .search-input {
-                    width: 70px;
-                    font-size: 0.92rem;
-                    padding: 0.18rem 0.4rem;
+                .mobile-menu-list {
+                    list-style: none;
+                    padding: 0;
+                    margin: 0;
                 }
-                .search-btn {
-                    width: 28px;
-                    min-width: 28px;
-                    padding: 0.18rem 0.2rem;
+                .mobile-menu-item {
+                    margin: 0.4rem 0;
+                    text-align: center;
+                }
+                .mobile-menu-link, .mobile-menu-auth {
+                    display: inline-block;
+                    width: 85%;
+                    padding: 0.5rem 0;
+                    border-radius: 14px;
+                    text-decoration: none;
+                    color: #dc3545;
+                    background: #fff6f6;
                     font-size: 1rem;
+                    font-weight: 500;
+                    margin: 0.1rem 0;
+                    box-shadow: 0 1px 6px rgba(220,53,69,0.06);
+                    border: 1.2px solid #f8d7da;
+                    transition: background 0.18s, color 0.18s, box-shadow 0.18s;
                 }
-                .auth-btn {
-                    font-size: 0.92rem;
-                    padding: 0.18rem 0.6rem;
-                    border-radius: 5px;
+                .mobile-menu-link:hover, .mobile-menu-auth:hover {
+                    background: #dc3545;
+                    color: #fff;
+                    box-shadow: 0 2px 12px rgba(220,53,69,0.13);
+                    border-color: #dc3545;
+                }
+                .mobile-menu-search {
+                    display: flex;
+                    justify-content: center;
+                    margin: 0.7rem 0 0.2rem 0;
+                }
+                .mobile-menu-search-input {
+                    border: 1.2px solid #dc3545;
+                    border-radius: 6px 0 0 6px;
+                    background: #fff8f3;
+                    color: #222;
+                    font-size: 0.98rem;
+                    padding: 0.25rem 0.6rem;
+                    width: 65%;
+                    height: 2.1rem;
+                }
+                .mobile-menu-search-btn {
+                    border: 1.2px solid #dc3545;
+                    border-radius: 0 6px 6px 0;
+                    background: #fff6f6;
+                    color: #dc3545;
+                    font-size: 1.1rem;
+                    padding: 0.25rem 0.7rem;
+                    height: 2.1rem;
+                    cursor: pointer;
+                    transition: background 0.18s, color 0.18s;
+                }
+                .mobile-menu-search-btn:hover {
+                    background: #dc3545;
+                    color: #fff;
                 }
             }
-            @media (max-width: 480px) {
-                .navbar-logo {
-                    font-size: 0.9rem;
+            @media (min-width: 801px) {
+                .mobile-menu {
+                    display: none !important;
                 }
-                .nav-link {
-                    font-size: 0.92rem;
-                    padding: 0.2rem 0.3rem;
-                }
-                .auth-btn, .search-btn {
-                    font-size: 0.9rem;
-                    padding: 0.15rem 0.3rem;
-                }
-                .search-input {
-                    width: 55px;
-                }
-            }
-            .background-waves {
-                display: none;
-            }
-            .background-waves-full {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100vw;
-                height: 100vh;
-                z-index: 0;
-                pointer-events: none;
-            }
-            .wave-top {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100vw;
-                height: 180px;
-                min-height: 120px;
-                max-height: 220px;
-                display: block;
-            }
-            .wave-bottom {
-                position: absolute;
-                bottom: 0;
-                left: 0;
-                width: 100vw;
-                height: 180px;
-                min-height: 120px;
-                max-height: 220px;
-                display: block;
-            }
-            .main-content {
-                position: relative;
-                z-index: 1;
             }
         </style>
         
-        <nav class="custom-navbar">
-            <div class="navbar-container">
-                <a class="navbar-logo" href="/">
-                    <img src="/image/logopingcdj.png" alt="Logo CDJ Villereau" style="height:100%;max-width:150px;object-fit:contain;">
-                </a>
-                <button class="burger" aria-label="Menu" onclick="document.getElementById('navbarNav').classList.toggle('active')">&#9776;</button>
-                <ul class="navbar-nav" id="navbarNav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/accueil">Accueil</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/actualite">Actualités</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/contact">Contact</a>
-                    </li>
-                </ul>
-                <div class="navbar-right">
-                    <form class="search-form" role="search">
-                        <input class="search-input" type="search" placeholder="Rechercher" aria-label="Rechercher">
-                        <button class="search-btn" type="submit">🔍</button>
-                    </form>
-                    <a href="/login" class="auth-btn">Connexion</a>
-                </div>
-            </div>
-        </nav>
-        
         <script>
-            function toggleNavbar() {
-                const nav = document.getElementById('navbarNav');
-                nav.classList.toggle('active');
+            function toggleMobileMenu() {
+                var menu = document.getElementById('mobileMenu');
+                menu.classList.toggle('active');
             }
         </script>
-        {% endblock %}
-
-        {% block javascripts %}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
-        {% endblock %}
     </head>
     <body>
-        <div class="background-waves-full">
-            <svg viewBox="0 0 1440 1080" width="100%" height="100%" preserveAspectRatio="none" style="position:absolute;top:0;left:0;width:100vw;height:100vh;z-index:0;display:block;">
+        <nav class="navbar">
+            <a href="/" class="navbar-logo">
+                <img src="/image/logopingcdj.png" alt="CDJ Villereau Logo">
+            </a>
+            <div class="navbar-links">
+                <a href="/accueil" class="nav-link">Accueil</a>
+                <a href="/actualite" class="nav-link">Actualités du Ping</a>
+                <a href="/entrainement" class="nav-link">Entrainement</a>
+                <a href="/partenaire" class="nav-link">Partenaires</a>
+                <a href="/adhesion" class="nav-link">Adhesion</a>
+                <a href="/contact" class="nav-link">Contact</a>
+                <a href="/avis" class="nav-link">Vos avis</a>
+            </div>
+            <div class="navbar-actions">
+                <a href="/login" class="auth-btn">Connexion</a>
+            </div>
+            <button class="burger" aria-label="Menu" onclick="toggleMobileMenu()">
+                &#9776;
+            </button>
+            <div class="mobile-menu" id="mobileMenu">
+                <ul class="mobile-menu-list">
+                    <li class="mobile-menu-item">
+                        <a href="/accueil" class="mobile-menu-link">Accueil</a>
+                    </li>
+                    <li class="mobile-menu-item">
+                        <a href="/actualite" class="mobile-menu-link">Actualités du Ping</a>
+                    </li>
+                    <li class="mobile-menu-item">
+                        <a href="/entrainement" class="mobile-menu-link">Entrainement</a>
+                    </li>
+                    <li class="mobile-menu-item">
+                        <a href="/partenaire" class="mobile-menu-link">Partenaires</a>
+                    </li>
+                    <li class="mobile-menu-item">
+                        <a href="/contact" class="mobile-menu-link">Contact</a>
+                    </li>
+                    <li class="mobile-menu-item">
+                        <a href="/adhesion" class="mobile-menu-auth">Adhesion</a>
+                    </li>
+                    <li class="mobile-menu-item">
+                        <a href="/avis" class="mobile-menu-auth">Vos avis</a>
+                    </li>
+                    <li class="mobile-menu-item">
+                        <a href="/login" class="mobile-menu-auth">Connexion</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div style="position:relative;z-index:1;">
+            {% block body %}{% endblock %}
+        </div>
+
+        <div style="position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:0;pointer-events:none;">
+            <svg viewBox="0 0 1440 1080" width="100%" height="100%" preserveAspectRatio="none">
                 <defs>
                     <linearGradient id="fondPeche" x1="0" y1="0" x2="1" y2="1">
                         <stop offset="0%" stop-color="#ffe5d0"/>
@@ -327,18 +304,12 @@
                         <stop offset="100%" stop-color="#fff8f3" stop-opacity="0.0"/>
                     </linearGradient>
                 </defs>
-                <!-- Fond pêche/orangé -->
                 <rect x="0" y="0" width="1440" height="1080" fill="url(#fondPeche)"/>
-                <!-- Vague diagonale principale -->
                 <path d="M-100,900 Q600,400 1540,700 L1540,1080 L-100,1080 Z" fill="url(#waveA)"/>
-                <!-- Vague secondaire en haut -->
                 <path d="M0,200 Q500,0 1440,250 L1440,0 L0,0 Z" fill="url(#waveB)"/>
-                <!-- Vague secondaire en bas -->
                 <path d="M0,950 Q900,1200 1440,900 L1440,1080 L0,1080 Z" fill="url(#waveC)"/>
             </svg>
         </div>
-        <div class="main-content">
-            {% block body %}{% endblock %}
-        </div>
     </body>
 </html>
+
