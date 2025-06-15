@@ -4,28 +4,158 @@
 
 {% block body %}
 <style>
-    .wrapper { 
+    .main-title {
+        margin-top: 3.5rem;
+        margin-bottom: 2rem;
+        text-align: center;
+        font-size: 2.4rem;
+        font-weight: bold;
+        color: #222;
+        line-height: 1.2;
+    }
+    .main-title + .main-title {
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+        color: #333;
+    }
+    .cards-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2.2rem;
+        justify-content: center;
+        align-items: stretch;
+        margin: 2.5rem auto 0 auto;
+        max-width: 1100px;
+    }
+    .card-custom {
+        background: #fff;
+        border-radius: 28px;
+        box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+        padding: 2.3rem 2.5rem 1.7rem 2.5rem;
+        min-width: 320px;
+        max-width: 500px;
+        flex: 1 1 340px;
+        color: #222;
+        font-size: 1.12rem;
+        line-height: 1.7;
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        height: 100vh;
-        width: 100%;
-        background-color: #f0f0f0;
+        justify-content: flex-start;
     }
-
-    h1 {
+    .card-custom h2 {
+        font-size: 1.25rem;
         font-weight: bold;
-        color: #000;
+        margin-bottom: 1.1rem;
+        color: #222;
+        line-height: 1.2;
+    }
+    .card-custom ul {
+        margin-left: 1.1rem;
+        margin-bottom: 1.2rem;
+        padding-left: 0.5rem;
+    }
+    .card-custom li {
+        margin-bottom: 0.6rem;
+        color: #444;
+        font-size: 1.08rem;
+        line-height: 1.7;
+    }
+    .card-custom ul ul {
+        margin-top: 0.3rem;
+        margin-bottom: 0.3rem;
+        padding-left: 1.2rem;
+    }
+    .card-custom em {
+        display: block;
+        margin-top: 1.2rem;
+        color: #888;
+        font-size: 1.13rem;
+        font-style: italic;
+        opacity: 0.95;
+        text-align: center;
+        word-break: break-word;
+        white-space: normal;
+        max-width: 100%;
+    }
+    .card-custom b {
+        color: #222;
+    }
+    .card-custom li::marker {
+        color: #bbb;
+        font-size: 1.1em;
+    }
+    .card-custom ul ul li::marker {
+        color: #ccc;
+    }
+    .intro-text {
+        color: #444;
+        font-size: 1.12rem;
+        line-height: 1.7;
+        margin: 0 auto 0.7rem auto;
+        max-width: 900px;
         text-align: center;
     }
-    
+    .final-paragraph {
+        color: #555;
+        font-size: 1.08rem;
+        margin: 2.2rem auto 1.5rem auto;
+        text-align: center;
+        max-width: 900px;
+        line-height: 1.7;
+    }
+    @media (max-width: 900px) {
+        .cards-container {
+            flex-direction: column;
+            gap: 1.5rem;
+            align-items: center;
+        }
+        .card-custom {
+            width: 100%;
+            max-width: 98vw;
+            min-width: 0;
+            padding: 1.2rem 1rem 1rem 1rem;
+        }
+    }
 </style>
 
 <div class="wrapper">
-    <h1>Le CDJ Villereau vous souhaite la bienvenue</h1>
-    <p>Villereau est une ville de 10000 habitants située dans le département de la Loire.</p>
-    <p>Villereau est une ville de 10000 habitants située dans le département de la Loire.</p>
-</div>
+    <h1 class="main-title">Bienvenue au CDJ Villereau (59)</h1>
+    <h2 class="main-title">Plus qu'un club, une famille !</h2>
+
+    <p class="intro-text">Au cœur du Nord, notre club réunit 58 licenciés : 27 jeunes et 31 adultes, 
+    tous animés par la même passion du tennis de table. Que vous soyez débutant ou joueur confirmé, 
+    vous trouverez chez nous un encadrement de qualité et une ambiance chaleureuse où chacun peut progresser… 
+    tout en s'amusant !</p>
+
+    <div class="cards-container">
+        <div class="card-custom">
+            <h2>Nos créneaux d'entraînement</h2>
+            <ul>
+                <li><b>Lundi</b> : 19h30–21h00 (adultes & jeunes)</li>
+                <li><b>Mercredi</b> :
+                    <ul>
+                        <li>17h00–19h15 (jeunes)</li>
+                        <li>19h15–21h30 (adultes)</li>
+                    </ul>
+                </li>
+                <li><b>Vendredi</b> : 18h30–22h00 (adultes & jeunes)</li>
+                <li><b>Samedi</b> : 10h00–11h30 (jeunes)</li>
+            </ul>
+        </div>
+        <div class="card-custom">
+            <h2>La vie du club</h2>
+            <ul>
+                <li><b>Repas conviviaux</b> (BBQ, raclette, buffet...) pour se retrouver hors des terrains</li>
+                <li><b>Tournois amicaux</b> et journées festives pour entretenir l'esprit d'équipe</li>
+                <li><b>Ambiance familiale</b>, où les échanges de conseils sont aussi nombreux que les rires</li>
+            </ul>
+            <em>"Plus qu'un club, une famille" n'est pas qu'un slogan : c'est notre engagement au quotidien.</em>
+        </div>
+    </div>
+    
+    <p class="final-paragraph">Prêt à taper la balle avec nous ? 
+    Venez nous rencontrer aux horaires d'entraînement, 
+    ou <a href="/contact">contactez-nous</a> pour toute question !</p>
 
 </div>
 {% endblock %}
