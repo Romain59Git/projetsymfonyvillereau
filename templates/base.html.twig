@@ -6,15 +6,35 @@
         <title>{% block title %}Welcome!{% endblock %}</title>
         
         <style>
+            /* Réinitialisation des styles de base pour assurer une cohérence entre les navigateurs */
             * { box-sizing: border-box; }
             
+            /* Configuration de base pour le HTML et le body
+               - Hauteur minimale de 100vh pour occuper tout l'écran
+               - Police Arial par défaut
+               - Fond transparent pour permettre l'affichage du fond personnalisé */
             html, body {
                 min-height: 100vh;
                 margin: 0;
                 font-family: Arial, sans-serif;
                 background: transparent;
+                height: 100%;
             }
             
+            body {
+                min-height: 100vh;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                height: 100%;
+            }
+            
+            /* Barre de navigation principale
+               - Largeur de 95% avec marges automatiques
+               - Fond semi-transparent avec effet de flou
+               - Bordure rouge et ombre portée pour la profondeur
+               - Flexbox pour l'alignement des éléments
+               - z-index élevé pour rester au-dessus du fond */
             .navbar {
                 width: 95%;
                 margin: 1.5rem auto 0 auto;
@@ -30,6 +50,10 @@
                 z-index: 10;
             }
             
+            /* Configuration du logo
+               - Hauteur fixe de 60px
+               - Flexbox pour centrer verticalement
+               - Image redimensionnée pour maintenir les proportions */
             .navbar-logo {
                 display: flex;
                 align-items: center;
@@ -41,6 +65,10 @@
                 object-fit: contain;
             }
             
+            /* Navigation principale
+               - Espacement uniforme entre les liens
+               - Transitions douces pour les interactions
+               - Couleurs cohérentes avec le thème */
             .navbar-links {
                 display: flex;
                 gap: 1.2rem;
@@ -59,6 +87,10 @@
                 color: #a71d2a;
             }
             
+            /* Section des actions (recherche et connexion)
+               - Alignement flexible des éléments
+               - Styles cohérents pour les boutons
+               - Transitions pour les interactions */
             .navbar-actions {
                 display: flex;
                 align-items: center;
@@ -107,6 +139,10 @@
                 color: #fff;
             }
             
+            /* Menu burger pour mobile
+               - Caché par défaut sur desktop
+               - Style minimaliste avec icône
+               - Effets de survol subtils */
             .burger {
                 display: none;
                 background: none;
@@ -124,6 +160,11 @@
                 background: #ffeaea;
             }
             
+            /* Styles responsifs pour mobile
+               - Breakpoint à 800px
+               - Réorganisation des éléments
+               - Menu burger visible
+               - Menu déroulant pour la navigation */
             @media (max-width: 800px) {
                 .navbar {
                     flex-wrap: wrap;
@@ -135,6 +176,11 @@
                 .burger {
                     display: block;
                 }
+                /* Menu mobile
+                   - Position absolue pour le chevauchement
+                   - Largeur adaptative avec limites
+                   - Animation d'apparition
+                   - Style cohérent avec le thème */
                 .mobile-menu {
                     display: none;
                     position: absolute;
@@ -185,6 +231,10 @@
                     box-shadow: 0 2px 12px rgba(220,53,69,0.13);
                     border-color: #dc3545;
                 }
+                /* Barre de recherche mobile
+                   - Style adapté pour le tactile
+                   - Dimensions optimisées pour mobile
+                   - Cohérence visuelle avec le thème */
                 .mobile-menu-search {
                     display: flex;
                     justify-content: center;
@@ -216,13 +266,141 @@
                     color: #fff;
                 }
             }
+            /* Masquer le menu mobile sur desktop
+               - Important pour éviter les conflits de style */
             @media (min-width: 801px) {
                 .mobile-menu {
                     display: none !important;
                 }
             }
+            .site-footer {
+                width: 100%;
+                background: rgba(255,247,240,0.97);
+                border-top: 2px solid #dc3545;
+                margin-top: 1.2rem;
+                padding: 0.5rem 0 0.3rem 0;
+                font-size: 1rem;
+                color: #222;
+                box-shadow: 0 -2px 16px rgba(220,53,69,0.06);
+                position: relative;
+                z-index: 2;
+                flex-shrink: 0;
+            }
+            .footer-container {
+                max-width: 1400px;
+                margin: 0 auto;
+                padding: 0 1.2rem;
+                width: 100%;
+            }
+            .footer-row {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+                width: 100%;
+                gap: 1.2rem;
+            }
+            .footer-col {
+                flex: 1 1 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                min-width: 0;
+            }
+            .footer-brand {
+                justify-content: flex-start;
+                gap: 0.4rem;
+                font-weight: 500;
+            }
+            .footer-logo {
+                height: 28px;
+                width: auto;
+                border-radius: 8px;
+                background: #fff;
+                border: 1px solid #f8d7da;
+                padding: 2px;
+            }
+            .footer-links {
+                justify-content: center;
+                gap: 0.7rem;
+                flex-wrap: wrap;
+            }
+            .footer-links a {
+                color: #dc3545;
+                text-decoration: none;
+                font-weight: 500;
+                transition: color 0.18s;
+                font-size: 1rem;
+            }
+            .footer-links a:hover {
+                color: #a71d2a;
+                text-decoration: underline;
+            }
+            .footer-extra {
+                justify-content: flex-end;
+                color: #888;
+                font-size: 0.97rem;
+                text-align: right;
+            }
+            @media (max-width: 900px) {
+                .footer-container {
+                    padding: 0 0.2rem;
+                }
+                .footer-row {
+                    gap: 0.5rem;
+                }
+            }
+            @media (max-width: 700px) {
+                .footer-row {
+                    flex-direction: column;
+                    align-items: stretch;
+                    gap: 0.5rem;
+                }
+                .footer-col {
+                    width: 100%;
+                    justify-content: center !important;
+                    text-align: center;
+                }
+                .footer-brand {
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 0.2rem;
+                }
+                .footer-links {
+                    flex-direction: column;
+                    flex-wrap: nowrap;
+                    align-items: stretch;
+                    justify-content: center;
+                    gap: 0.2rem;
+                    margin-top: 0.2rem;
+                    font-size: 0.95rem;
+                    width: 100%;
+                }
+                .footer-links a {
+                    display: block;
+                    width: 100%;
+                    min-width: 0;
+                    max-width: 100%;
+                    text-align: center;
+                    white-space: normal;
+                    padding: 0.35em 0;
+                }
+                .footer-extra {
+                    font-size: 0.92rem;
+                    text-align: center;
+                    margin-top: 0.1rem;
+                    width: 100%;
+                }
+            }
+            .main-content {
+                flex: 1 0 auto;
+                display: block;
+            }
         </style>
         
+        <!-- Script pour le menu mobile
+             - Fonction simple pour basculer la visibilité
+             - Utilise les classes CSS pour l'animation -->
         <script>
             function toggleMobileMenu() {
                 var menu = document.getElementById('mobileMenu');
@@ -231,10 +409,16 @@
         </script>
     </head>
     <body>
+        <!-- Barre de navigation principale
+             - Structure flexible pour tous les écrans
+             - Logo, liens et actions organisés -->
         <nav class="navbar">
             <a href="/" class="navbar-logo">
                 <img src="/image/logopingcdj.png" alt="CDJ Villereau Logo">
             </a>
+            <!-- Liens de navigation
+                 - Structure sémantique
+                 - Accessibilité préservée -->
             <div class="navbar-links">
                 <a href="/accueil" class="nav-link">Accueil</a>
                 <a href="/actualite" class="nav-link">Actualités du Ping</a>
@@ -244,12 +428,21 @@
                 <a href="/contact" class="nav-link">Contact</a>
                 <a href="/avis" class="nav-link">Vos avis</a>
             </div>
+            <!-- Actions de la barre de navigation
+                 - Boutons d'action principaux
+                 - Style cohérent avec le thème -->
             <div class="navbar-actions">
                 <a href="/login" class="auth-btn">Connexion</a>
             </div>
+            <!-- Bouton menu burger
+                 - Visible uniquement sur mobile
+                 - Accessibilité avec aria-label -->
             <button class="burger" aria-label="Menu" onclick="toggleMobileMenu()">
                 &#9776;
             </button>
+            <!-- Menu mobile
+                 - Structure alternative pour mobile
+                 - Même contenu que la navigation desktop -->
             <div class="mobile-menu" id="mobileMenu">
                 <ul class="mobile-menu-list">
                     <li class="mobile-menu-item">
@@ -280,12 +473,21 @@
             </div>
         </nav>
 
-        <div style="position:relative;z-index:1;">
+        <!-- Contenu principal -->
+        <div class="main-content" style="position:relative;z-index:1; flex:1 0 auto;">
             {% block body %}{% endblock %}
         </div>
 
+        <!-- Arrière-plan avec dégradés et vagues
+             - Position fixe pour couvrir tout l'écran
+             - SVG pour les effets visuels
+             - z-index bas pour rester en arrière-plan -->
         <div style="position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:0;pointer-events:none;">
             <svg viewBox="0 0 1440 1080" width="100%" height="100%" preserveAspectRatio="none">
+                <!-- Définition des dégradés
+                     - Dégradés linéaires pour les effets
+                     - Opacité variable pour la profondeur
+                     - Couleurs cohérentes avec le thème -->
                 <defs>
                     <linearGradient id="fondPeche" x1="0" y1="0" x2="1" y2="1">
                         <stop offset="0%" stop-color="#ffe5d0"/>
@@ -304,12 +506,38 @@
                         <stop offset="100%" stop-color="#fff8f3" stop-opacity="0.0"/>
                     </linearGradient>
                 </defs>
+                <!-- Fond et vagues décoratives
+                     - Formes SVG pour les effets
+                     - Superposition des couches
+                     - Effet de profondeur avec les opacités -->
                 <rect x="0" y="0" width="1440" height="1080" fill="url(#fondPeche)"/>
                 <path d="M-100,900 Q600,400 1540,700 L1540,1080 L-100,1080 Z" fill="url(#waveA)"/>
                 <path d="M0,200 Q500,0 1440,250 L1440,0 L0,0 Z" fill="url(#waveB)"/>
                 <path d="M0,950 Q900,1200 1440,900 L1440,1080 L0,1080 Z" fill="url(#waveC)"/>
             </svg>
         </div>
+
+        <!-- Footer légal et informatif -->
+        <footer class="site-footer">
+            <div class="footer-container">
+                <div class="footer-row">
+                    <div class="footer-col footer-brand">
+                        <img src="/image/logopingcdj.png" alt="CDJ Villereau Logo" class="footer-logo">
+                        <span>CDJ Villereau &copy; {{ "now"|date("Y") }}</span>
+                    </div>
+                    <nav class="footer-col footer-links">
+                        <a href="/mentions-legales">Mentions légales</a>
+                        <a href="/confidentialite">Politique de confidentialité</a>
+                        <a href="/contact">Contact</a>
+                        <a href="/accessibilite">Accessibilité</a>
+                        <a href="/cookies">Gestion des cookies</a>
+                    </nav>
+                    <div class="footer-col footer-extra">
+                        <span>Association loi 1901 - SIRET : [à compléter] - Siège : [adresse à compléter]</span>
+                    </div>
+                </div>
+            </div>
+        </footer>
     </body>
 </html>
 
