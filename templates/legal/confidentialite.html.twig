@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+{% block title %}Politique de confidentialité{% endblock %}
+{% block body %}
+<style>
+.legal-container {
+    max-width: 700px;
+    margin: 2.5rem auto 2rem auto;
+    background: #fff8f3;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(220,53,69,0.07);
+    padding: 2rem 1.5rem;
+    color: #222;
+}
+.legal-container h1 {
+    font-size: 2rem;
+    margin-bottom: 1.2rem;
+    color: #dc3545;
+    text-align: center;
+}
+.legal-container ul {
+    margin: 1.2rem 0 0 1.2rem;
+    padding: 0;
+}
+.legal-container li {
+    margin-bottom: 0.6rem;
+    font-size: 1.08rem;
+}
+@media (max-width: 600px) {
+    .legal-container {
+        padding: 1.1rem 0.5rem;
+    }
+    .legal-container h1 {
+        font-size: 1.3rem;
+    }
+}
+</style>
+<div class="legal-container">
+<h1>Politique de confidentialité</h1>
+<p>Cette page explique comment vos données personnelles sont collectées et traitées conformément au RGPD et à la législation française. Merci de compléter avec les pratiques de votre association.</p>
+<ul>
+  <li>Données collectées</li>
+  <li>Finalité du traitement</li>
+  <li>Durée de conservation</li>
+  <li>Droits des personnes concernées</li>
+  <li>Contact pour la protection des données</li>
+</ul>
+</div>
+{% endblock %} 

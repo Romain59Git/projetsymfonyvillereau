@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin - CDJ Villereau{% endblock %}
+
+{% block body %}
+    <div class="container" style="max-width: 600px; margin: 2rem auto;">
+        <h1>Admin - Création d'un licencié</h1>
+        {% if success %}
+            <div style="background: #d4edda; color: #155724; border: 1px solid #c3e6cb; padding: 1rem; border-radius: 6px; margin-bottom: 1.5rem;">
+                Le licencié et son compte utilisateur ont bien été créés. Un email a été envoyé avec les identifiants.
+            </div>
+        {% endif %}
+        {{ form_start(form_licencie) }}
+            {{ form_row(form_licencie.firstName) }}
+            {{ form_row(form_licencie.lastName) }}
+            {{ form_row(form_licencie.email) }}
+            {{ form_row(form_licencie.birthDate) }}
+            <button class="btn btn-primary" type="submit">Créer le licencié</button>
+        {{ form_end(form_licencie) }}
+    </div>
+{% endblock %}
