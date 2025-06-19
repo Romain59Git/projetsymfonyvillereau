@@ -1,70 +1,53 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Espace Licencié - CDJ Villereau{% endblock %}
+{% block title %}Réinitialisation du mot de passe - CDJ Villereau{% endblock %}
 
 {% block body %}
 <div class="login-container">
     <div class="login-card">
-        <h1>Espace Licencié</h1>
+        <h1>Nouveau mot de passe</h1>
 
-        {% if error %}
+        {% for message in app.flashes('error') %}
             <div class="alert-error">
-                {{ error.messageKey|trans(error.messageData, 'security') }}
+                {{ message }}
             </div>
-        {% endif %}
+        {% endfor %}
+
+        {% for message in app.flashes('success') %}
+            <div class="alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+        <p class="text-muted text-center mb-4">
+            Veuillez choisir votre nouveau mot de passe.
+        </p>
 
         <form method="post" class="login-form">
-            {% if csrf_token('authenticate') is defined %}
-                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-            {% endif %}
-
-            <div class="form-group">
-                <label for="email">
-                    <i class="fas fa-envelope"></i>
-                    Email
-                </label>
-                <input 
-                    type="email" 
-                    id="email" 
-                    name="_username" 
-                    value="{{ last_username }}" 
-                    required 
-                    autofocus
-                    placeholder="Votre adresse email"
-                >
-            </div>
-
             <div class="form-group">
                 <label for="password">
                     <i class="fas fa-lock"></i>
-                    Mot de passe
+                    Nouveau mot de passe
                 </label>
                 <input 
                     type="password" 
                     id="password" 
-                    name="_password" 
-                    required
-                    placeholder="Votre mot de passe"
+                    name="password" 
+                    required 
+                    autofocus
+                    placeholder="Votre nouveau mot de passe"
+                    minlength="6"
                 >
-            </div>
-
-            <div class="form-group remember-me">
-                <label class="checkbox-container">
-                    <input type="checkbox" id="remember_me" name="_remember_me">
-                    <span class="checkmark"></span>
-                    Se souvenir de moi
-                </label>
+                <small class="form-text text-muted">
+                    Le mot de passe doit contenir au moins 6 caractères.
+                </small>
             </div>
 
             <button type="submit" class="login-button">
-                <i class="fas fa-sign-in-alt"></i>
-                Se connecter
+                <i class="fas fa-check"></i>
+                Réinitialiser le mot de passe
             </button>
         </form>
-
-        <div class="forgot-password">
-            <a href="{{ path('app_forgot_password') }}">Mot de passe oublié ?</a>
-        </div>
     </div>
 </div>
 
@@ -89,9 +72,14 @@
     .login-card h1 {
         color: var(--primary-color);
         text-align: center;
-        margin-bottom: 2rem;
-        font-size: 2rem;
+        margin-bottom: 1.5rem;
+        font-size: 1.75rem;
         font-weight: 600;
+    }
+
+    .text-muted {
+        color: #666;
+        font-size: 0.9rem;
     }
 
     .login-form {
@@ -132,23 +120,9 @@
         box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
     }
 
-    .remember-me {
-        margin-top: -0.5rem;
-    }
-
-    .checkbox-container {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        cursor: pointer;
-        font-size: 0.9rem;
-        color: var(--text-color);
-    }
-
-    .checkbox-container input[type="checkbox"] {
-        width: 18px;
-        height: 18px;
-        margin: 0;
+    .form-text {
+        font-size: 0.8rem;
+        color: #666;
     }
 
     .login-button {
@@ -182,21 +156,14 @@
         font-size: 0.9rem;
     }
 
-    .forgot-password {
-        text-align: center;
-        margin-top: 1rem;
-    }
-
-    .forgot-password a {
-        color: var(--text-color);
-        font-size: 0.85rem;
-        text-decoration: none;
-        opacity: 0.7;
-        transition: opacity 0.3s ease;
-    }
-
-    .forgot-password a:hover {
-        opacity: 1;
+    .alert-success {
+        background-color: #dcfce7;
+        border: 1px solid #22c55e;
+        color: #166534;
+        padding: 1rem;
+        border-radius: 8px;
+        margin-bottom: 1.5rem;
+        font-size: 0.9rem;
     }
 
     @media (max-width: 480px) {
@@ -209,8 +176,8 @@
         }
 
         .login-card h1 {
-            font-size: 1.75rem;
+            font-size: 1.5rem;
         }
     }
 </style>
-{% endblock %}
+{% endblock %} 
