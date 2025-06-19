@@ -4,365 +4,360 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>{% block title %}Welcome!{% endblock %}</title>
-        
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
         <style>
-            /* Réinitialisation des styles de base pour assurer une cohérence entre les navigateurs */
-            * { box-sizing: border-box; }
+            :root {
+                --primary-color: #2c3e50;
+                --secondary-color: #3498db;
+                --accent-color: #e74c3c;
+                --text-color: #2c3e50;
+                --light-gray: #ecf0f1;
+                --white: #ffffff;
+                --shadow: 0 2px 10px rgba(0,0,0,0.1);
+                --transition: all 0.3s ease;
+            }
+
+            * { 
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
             
-            /* Configuration de base pour le HTML et le body
-               - Hauteur minimale de 100vh pour occuper tout l'écran
-               - Police Arial par défaut
-               - Fond transparent pour permettre l'affichage du fond personnalisé */
             html, body {
                 min-height: 100vh;
-                margin: 0;
-                font-family: Arial, sans-serif;
-                background: none;
-                height: 100%;
+                font-family: 'Poppins', sans-serif;
+                background-color: var(--white);
+                color: var(--text-color);
+                line-height: 1.6;
             }
             
             body {
-                min-height: 100vh;
                 display: flex;
                 flex-direction: column;
                 justify-content: flex-start;
-                height: 100%;
             }
             
-            /* Barre de navigation principale
-               - Largeur de 95% avec marges automatiques
-               - Fond semi-transparent avec effet de flou
-               - Bordure rouge et ombre portée pour la profondeur
-               - Flexbox pour l'alignement des éléments
-               - z-index élevé pour rester au-dessus du fond */
             .navbar {
-                width: 95%;
-                margin: 1.5rem auto 0 auto;
-                background: none;
-                border: none;
-                border-radius: 0;
-                box-shadow: none;
+                width: 100%;
+                background-color: var(--white);
+                box-shadow: var(--shadow);
+                padding: 1rem 5%;
+                position: sticky;
+                top: 0;
+                z-index: 1000;
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
-                padding: 0.5rem 1.2rem;
-                position: relative;
-                z-index: 10;
+                transition: var(--transition);
             }
             
-            /* Configuration du logo
-               - Hauteur fixe de 60px
-               - Flexbox pour centrer verticalement
-               - Image redimensionnée pour maintenir les proportions */
             .navbar-logo {
                 display: flex;
                 align-items: center;
-                height: 60px;
+                height: 50px;
+                text-decoration: none;
             }
+
             .navbar-logo img {
                 height: 100%;
-                max-width: 120px;
+                width: auto;
                 object-fit: contain;
             }
             
-            /* Navigation principale
-               - Espacement uniforme entre les liens
-               - Transitions douces pour les interactions
-               - Couleurs cohérentes avec le thème */
             .navbar-links {
                 display: flex;
-                gap: 1.2rem;
+                gap: 2rem;
+                margin-left: auto;
+                margin-right: 2rem;
+                align-items: center;
             }
+
             .nav-link {
                 text-decoration: none;
-                color: inherit;
+                color: var(--text-color);
                 font-weight: 500;
-                font-size: 1.1rem;
-                padding: 0.3rem 0.8rem;
-                border-radius: 0;
-                transition: none;
-            }
-            .nav-link:hover {
-                background: none;
-                color: inherit;
-            }
-            
-            /* Section des actions (recherche et connexion)
-               - Alignement flexible des éléments
-               - Styles cohérents pour les boutons
-               - Transitions pour les interactions */
-            .navbar-actions {
-                display: flex;
-                align-items: center;
-                gap: 0.7rem;
-            }
-            .search-form {
-                display: flex;
-                align-items: center;
-            }
-            .search-input {
-                border: none;
-                border-radius: 0;
-                background: none;
-                color: inherit;
-                font-size: 1rem;
-                padding: 0.3rem 0.7rem;
-                width: 120px;
-            }
-            .search-btn {
-                border: none;
-                border-radius: 0;
-                background: none;
-                color: inherit;
-                font-size: 1.1rem;
-                padding: 0.3rem 0.7rem;
-                cursor: pointer;
-                transition: none;
-            }
-            .search-btn:hover {
-                background: none;
-                color: inherit;
-            }
-            .auth-btn {
-                border: none;
-                border-radius: 0;
-                background: none;
-                color: inherit;
-                font-size: 1rem;
-                font-weight: 500;
-                padding: 0.3rem 0.9rem;
-                text-decoration: none;
-                transition: none;
-            }
-            .auth-btn:hover {
-                background: none;
-                color: inherit;
-            }
-            
-            .site-footer {
-                width: 100%;
-                background: none;
-                border-top: none;
-                margin-top: 1.2rem;
-                padding: 0.5rem 0 0.3rem 0;
-                font-size: 1rem;
-                color: inherit;
-                box-shadow: none;
+                font-size: 0.95rem;
+                padding: 0.5rem 0;
                 position: relative;
-                z-index: 2;
-                flex-shrink: 0;
+                transition: var(--transition);
             }
-            .footer-container {
-                max-width: 1400px;
-                margin: 0 auto;
-                padding: 0 1.2rem;
+
+            .nav-link::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 0;
+                height: 2px;
+                background-color: var(--secondary-color);
+                transition: var(--transition);
+            }
+
+            .nav-link:hover::after {
                 width: 100%;
             }
-            .footer-row {
-                display: flex;
-                flex-direction: row;
-                align-items: center;
-                justify-content: space-between;
-                width: 100%;
-                gap: 1.2rem;
+
+            .dropdown {
+                position: relative;
             }
-            .footer-col {
-                flex: 1 1 0;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                min-width: 0;
+
+            .dropdown-content {
+                display: none;
+                position: absolute;
+                background-color: var(--white);
+                min-width: 200px;
+                box-shadow: var(--shadow);
+                border-radius: 8px;
+                top: 100%;
+                left: 50%;
+                transform: translateX(-50%);
+                padding: 0.5rem 0;
+                margin-top: 1rem;
             }
-            .footer-brand {
-                justify-content: flex-start;
-                gap: 0.4rem;
-                font-weight: 500;
+
+            .dropdown-content::before {
+                content: '';
+                position: absolute;
+                top: -8px;
+                left: 50%;
+                transform: translateX(-50%);
+                border-width: 0 8px 8px 8px;
+                border-style: solid;
+                border-color: transparent transparent var(--white) transparent;
             }
-            .footer-logo {
-                height: 28px;
-                width: auto;
-                border-radius: 0;
-                background: none;
-                border: none;
-                padding: 0;
-            }
-            .footer-links {
-                justify-content: center;
-                gap: 0.7rem;
-                flex-wrap: wrap;
-            }
-            .footer-links a {
-                color: inherit;
-                text-decoration: none;
-                font-weight: 500;
-                transition: color 0.18s;
-                font-size: 1rem;
-            }
-            .footer-links a:hover {
-                color: inherit;
-                text-decoration: underline;
-            }
-            .footer-extra {
-                justify-content: flex-end;
-                color: inherit;
-                font-size: 0.97rem;
-                text-align: right;
-            }
-            @media (max-width: 900px) {
-                .footer-container {
-                    padding: 0 0.2rem;
-                }
-                .footer-row {
-                    gap: 0.5rem;
-                }
-            }
-            @media (max-width: 700px) {
-                .footer-row {
-                    flex-direction: column;
-                    align-items: stretch;
-                    gap: 0.5rem;
-                }
-                .footer-col {
-                    width: 100%;
-                    justify-content: center !important;
-                    text-align: center;
-                }
-                .footer-brand {
-                    flex-direction: column;
-                    align-items: center;
-                    gap: 0.2rem;
-                }
-                .footer-links {
-                    flex-direction: column;
-                    flex-wrap: nowrap;
-                    align-items: stretch;
-                    justify-content: center;
-                    gap: 0.2rem;
-                    margin-top: 0.2rem;
-                    font-size: 0.95rem;
-                    width: 100%;
-                }
-                .footer-links a {
-                    display: block;
-                    width: 100%;
-                    min-width: 0;
-                    max-width: 100%;
-                    text-align: center;
-                    white-space: normal;
-                    padding: 0.35em 0;
-                }
-                .footer-extra {
-                    font-size: 0.92rem;
-                    text-align: center;
-                    margin-top: 0.1rem;
-                    width: 100%;
-                }
-            }
-            .main-content {
-                flex: 1 0 auto;
+
+            .dropdown:hover .dropdown-content {
                 display: block;
             }
+
+            .dropdown-content a {
+                color: var(--text-color);
+                padding: 0.8rem 1.5rem;
+                text-decoration: none;
+                display: block;
+                font-size: 0.9rem;
+                transition: var(--transition);
+            }
+
+            .dropdown-content a:hover {
+                background-color: var(--light-gray);
+                color: var(--secondary-color);
+            }
+
+            .auth-btn {
+                background-color: var(--secondary-color);
+                color: var(--white);
+                padding: 0.6rem 1.5rem;
+                border-radius: 25px;
+                text-decoration: none;
+                font-weight: 500;
+                font-size: 0.95rem;
+                transition: var(--transition);
+                border: 2px solid var(--secondary-color);
+            }
+
+            .auth-btn:hover {
+                background-color: transparent;
+                color: var(--secondary-color);
+            }
+
+            .site-footer {
+                background-color: var(--primary-color);
+                color: var(--white);
+                padding: 2rem 0;
+                margin-top: auto;
+            }
+
+            .footer-container {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 0 5%;
+            }
+
+            .footer-row {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                flex-wrap: wrap;
+                gap: 2rem;
+            }
+
+            .footer-brand {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+            }
+
+            .footer-brand span {
+                color: var(--white);
+                font-size: 0.95rem;
+            }
+
+            .footer-links {
+                display: flex;
+                gap: 2rem;
+                flex-wrap: wrap;
+            }
+
+            .footer-links a {
+                color: var(--white);
+                text-decoration: none;
+                font-size: 0.9rem;
+                transition: var(--transition);
+            }
+
+            .footer-links a:hover {
+                color: var(--secondary-color);
+            }
+
+            .footer-extra {
+                font-size: 0.85rem;
+                opacity: 0.8;
+                color: var(--white);
+            }
+
+            .burger-new {
+                display: none;  /* Caché par défaut */
+            }
+
             @media (max-width: 800px) {
                 .navbar-links, .navbar-actions {
                     display: none;
                 }
+
                 .burger-new {
-                    display: block;
+                    display: block;  /* Affiché uniquement sur mobile */
                     background: none;
                     border: none;
-                    font-size: 2.2rem;
-                    color: inherit;
+                    padding: 0.5rem;
                     cursor: pointer;
-                    z-index: 1101;
-                    position: relative;
                 }
+
                 .burger-new span,
                 .burger-new span:before,
                 .burger-new span:after {
                     display: block;
-                    background: #222;
-                    height: 3px;
-                    width: 32px;
-                    border-radius: 2px;
-                    position: absolute;
-                    left: 0;
-                    transition: 0.3s;
-                    content: '';
+                    background: var(--text-color);
+                    height: 2px;
+                    width: 24px;
+                    transition: var(--transition);
                 }
+
                 .burger-new span {
                     position: relative;
-                    top: 10px;
                 }
-                .burger-new span:before {
-                    top: -10px;
-                }
+
+                .burger-new span:before,
                 .burger-new span:after {
-                    top: 10px;
+                    content: '';
+                    position: absolute;
                 }
+
+                .burger-new span:before {
+                    top: -8px;
+                }
+
+                .burger-new span:after {
+                    bottom: -8px;
+                }
+
                 .burger-new.open span {
                     background: transparent;
                 }
+
                 .burger-new.open span:before {
-                    transform: translateY(10px) rotate(45deg);
+                    transform: rotate(45deg) translate(5px, 5px);
                 }
+
                 .burger-new.open span:after {
-                    transform: translateY(-10px) rotate(-45deg);
+                    transform: rotate(-45deg) translate(5px, -5px);
                 }
+
                 .menu-overlay {
                     display: none;
                     position: fixed;
-                    top: 0; left: 0; right: 0; bottom: 0;
-                    width: 100vw; height: 100vh;
-                    background: rgba(30,30,30,0.3);
-                    z-index: 1100;
-                    align-items: stretch;
-                    justify-content: flex-end;
-                }
-                .menu-overlay.open {
-                    display: flex;
-                }
-                .menu-drawer {
-                    background: rgba(30,30,30,0.85);
-                    backdrop-filter: blur(8px);
-                    width: 70vw;
-                    max-width: 340px;
-                    height: 100vh;
-                    box-shadow: -2px 0 16px rgba(0,0,0,0.18);
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    justify-content: center;
-                    position: relative;
-                    right: 0;
                     top: 0;
-                    transition: transform 0.3s cubic-bezier(.4,0,.2,1);
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    background: rgba(0,0,0,0.5);
+                    z-index: 999;
                 }
-                .menu-overlay ul {
+
+                .menu-overlay.open {
+                    display: block;
+                }
+
+                .menu-drawer {
+                    position: fixed;
+                    top: 0;
+                    right: 0;
+                    bottom: 0;
+                    width: 280px;
+                    background: var(--white);
+                    padding: 2rem;
+                    transform: translateX(100%);
+                    transition: var(--transition);
+                }
+
+                .menu-overlay.open .menu-drawer {
+                    transform: translateX(0);
+                }
+
+                .menu-drawer ul {
                     list-style: none;
                     padding: 0;
-                    margin: 0;
-                    text-align: center;
-                    width: 100%;
                 }
-                .menu-overlay li {
+
+                .menu-drawer li {
                     margin: 1.5rem 0;
                 }
-                .menu-overlay a {
-                    color: #fff;
-                    font-size: 1.3rem;
-                    font-family: 'Montserrat', Arial, sans-serif;
-                    font-weight: 400;
-                    letter-spacing: 1px;
+
+                .menu-drawer a {
+                    color: var(--text-color);
                     text-decoration: none;
-                    transition: color 0.2s;
-                    cursor: pointer;
+                    font-size: 1.1rem;
+                    font-weight: 500;
+                    transition: var(--transition);
                 }
-                .menu-overlay a:hover {
-                    color: #ff4b6e;
+
+                .menu-drawer a:hover {
+                    color: var(--secondary-color);
                 }
             }
+
             @media (min-width: 801px) {
-                .burger-new, .menu-overlay { display: none !important; }
+                .burger-new, .menu-overlay {
+                    display: none !important;
+                }
+            }
+
+            @media (max-width: 600px) {
+                .footer-row {
+                    flex-direction: column;
+                    text-align: center;
+                    gap: 1.5rem;
+                }
+
+                .footer-brand {
+                    justify-content: center;
+                }
+
+                .footer-links {
+                    justify-content: center;
+                }
+
+                .footer-extra {
+                    text-align: center;
+                }
+            }
+
+            .main-content {
+                flex: 1;
+                padding: 2rem 5%;
+                max-width: 1200px;
+                margin: 0 auto;
+                width: 100%;
             }
         </style>
     </head>
@@ -378,12 +373,16 @@
                  - Structure sémantique
                  - Accessibilité préservée -->
             <div class="navbar-links">
-                <a href="/accueil" class="nav-link">Accueil</a>
+                <div class="dropdown">
+                    <a href="/accueil" class="nav-link">Le Club</a>
+                    <div class="dropdown-content">
+                        <a href="/entrainement">Entrainement</a>
+                        <a href="/adhesion">Adhesion</a>
+                        <a href="/contact">Contact</a>
+                    </div>
+                </div>
                 <a href="/actualite" class="nav-link">Actualités du Ping</a>
-                <a href="/entrainement" class="nav-link">Entrainement</a>
                 <a href="/partenaire" class="nav-link">Partenaires</a>
-                <a href="/adhesion" class="nav-link">Adhesion</a>
-                <a href="/contact" class="nav-link">Contact</a>
                 <a href="/avis" class="nav-link">Vos avis</a>
             </div>
             <!-- Actions de la barre de navigation
@@ -398,12 +397,12 @@
             <div class="menu-overlay" id="menuOverlay">
                 <nav class="menu-drawer">
                     <ul>
-                        <li><a href="/accueil">Accueil</a></li>
-                        <li><a href="/actualite">Actualités du Ping</a></li>
+                        <li><a href="/accueil">Le Club</a></li>
                         <li><a href="/entrainement">Entrainement</a></li>
+                        <li><a href="/adhesion">Adhesion</a></li>
+                        <li><a href="/actualite">Actualités du Ping</a></li>
                         <li><a href="/partenaire">Partenaires</a></li>
                         <li><a href="/contact">Contact</a></li>
-                        <li><a href="/adhesion">Adhesion</a></li>
                         <li><a href="/avis">Vos avis</a></li>
                         <li><a href="/connexion">Connexion</a></li>
                     </ul>
@@ -420,18 +419,17 @@
         <footer class="site-footer">
             <div class="footer-container">
                 <div class="footer-row">
-                    <div class="footer-col footer-brand">
-                        <img src="/image/logopingcdj.png" alt="CDJ Villereau Logo" class="footer-logo">
-                        <span>CDJ Villereau &copy; {{ "now"|date("Y") }}</span>
+                    <div class="footer-brand">
+                        <span>CDJ Villereau © {{ "now"|date("Y") }}</span>
                     </div>
-                    <nav class="footer-col footer-links">
+                    <nav class="footer-links">
                         <a href="/mentions-legales">Mentions légales</a>
                         <a href="/confidentialite">Politique de confidentialité</a>
                         <a href="/contact">Contact</a>
                         <a href="/accessibilite">Accessibilité</a>
                         <a href="/cookies">Gestion des cookies</a>
                     </nav>
-                    <div class="footer-col footer-extra">
+                    <div class="footer-extra">
                         <span>Association loi 1901 - SIRET : [à compléter] - Siège : [adresse à compléter]</span>
                     </div>
                 </div>
