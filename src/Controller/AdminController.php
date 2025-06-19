@@ -53,6 +53,7 @@ final class AdminController extends AbstractController
             $user->setEmail($licencie->getEmail());
             $user->setRoles(['ROLE_LICENCIE']);
             $user->setPassword($hasher->hashPassword($user, $form->get('plainPassword')->getData()));
+            $user->setMustChangePassword(true);
             $em->persist($user);
             
             // Association Licencie <-> User
@@ -65,7 +66,7 @@ final class AdminController extends AbstractController
                 ->from('admin@cdjvillereau.fr')
                 ->to($user->getEmail())
                 ->subject('Votre compte CDJ Villereau')
-                ->text("Bienvenue !\n\nVotre compte a été créé avec succès.\n\nEmail : " . $user->getEmail() . "\n\nVous pouvez maintenant vous connecter à votre espace licencié sur notre site.");
+                ->text("Bienvenue !\n\nVotre compte a été créé avec succès.\n\nEmail : " . $user->getEmail() . "\n\nVous devrez changer votre mot de passe lors de votre première connexion à votre espace licencié sur notre site.");
             $mailer->send($email);
 
             $this->addFlash('success', 'Le licencié a été créé avec succès !');

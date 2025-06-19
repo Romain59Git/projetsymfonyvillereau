@@ -24,7 +24,7 @@ class Licencie
     #[ORM\Column(length: 255)]
     private ?string $email = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTime $birthDate = null;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
@@ -76,7 +76,7 @@ class Licencie
         return $this->birthDate;
     }
 
-    public function setBirthDate(\DateTime $birthDate): static
+    public function setBirthDate(?\DateTime $birthDate): static
     {
         $this->birthDate = $birthDate;
 

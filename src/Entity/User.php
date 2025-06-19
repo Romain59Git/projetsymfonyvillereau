@@ -35,6 +35,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'datetime_immutable')]
     private ?\DateTimeImmutable $createdAt = null;
 
+    #[ORM\Column(type: 'boolean')]
+    private bool $mustChangePassword = false;
+
     #[ORM\PrePersist]
     public function setCreatedAtValue(): void
     {
@@ -122,6 +125,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setCreatedAt(\DateTimeImmutable $createdAt): static
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getMustChangePassword(): bool
+    {
+        return $this->mustChangePassword;
+    }
+
+    public function setMustChangePassword(bool $mustChangePassword): static
+    {
+        $this->mustChangePassword = $mustChangePassword;
 
         return $this;
     }
