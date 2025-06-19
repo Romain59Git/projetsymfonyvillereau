@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>{% block title %}Welcome!{% endblock %}</title>
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
         <style>
             :root {
                 --primary-color: #2c3e50;
@@ -97,6 +98,31 @@
                 width: 100%;
             }
 
+            .logout-btn {
+                color: var(--text-color);
+                opacity: 0.6;
+                transition: var(--transition);
+                text-decoration: none;
+                font-size: 1.1rem;
+                padding: 0.5rem;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .logout-btn:hover {
+                opacity: 1;
+                background-color: var(--light-gray);
+            }
+
+            @media (max-width: 768px) {
+                .logout-btn {
+                    font-size: 1rem;
+                    padding: 0.4rem;
+                }
+            }
+
             .dropdown {
                 position: relative;
             }
@@ -144,21 +170,45 @@
                 color: var(--secondary-color);
             }
 
-            .auth-btn {
-                background-color: var(--secondary-color);
-                color: var(--white);
+            .auth-btn, .admin-btn {
                 padding: 0.6rem 1.5rem;
                 border-radius: 25px;
                 text-decoration: none;
                 font-weight: 500;
                 font-size: 0.95rem;
                 transition: var(--transition);
+                text-align: center;
+                min-width: 180px;
+            }
+
+            .auth-btn {
+                padding: 0.6rem 1.5rem;
+                border-radius: 25px;
+                text-decoration: none;
+                font-weight: 500;
+                font-size: 0.95rem;
+                transition: var(--transition);
+                background-color: var(--secondary-color);
+                color: var(--white);
                 border: 2px solid var(--secondary-color);
+                min-width: 180px;
+                text-align: center;
             }
 
             .auth-btn:hover {
                 background-color: transparent;
                 color: var(--secondary-color);
+            }
+
+            .admin-btn {
+                background-color: var(--primary-color);
+                color: var(--white);
+                border: 2px solid var(--primary-color);
+            }
+
+            .admin-btn:hover {
+                background-color: transparent;
+                color: var(--primary-color);
             }
 
             .site-footer {
@@ -172,25 +222,11 @@
                 max-width: 1200px;
                 margin: 0 auto;
                 padding: 0 5%;
-            }
-
-            .footer-row {
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
                 flex-wrap: wrap;
-                gap: 2rem;
-            }
-
-            .footer-brand {
-                display: flex;
-                align-items: center;
                 gap: 1rem;
-            }
-
-            .footer-brand span {
-                color: var(--white);
-                font-size: 0.95rem;
             }
 
             .footer-links {
@@ -210,10 +246,28 @@
                 color: var(--secondary-color);
             }
 
-            .footer-extra {
-                font-size: 0.85rem;
-                opacity: 0.8;
-                color: var(--white);
+            @media (max-width: 768px) {
+                .footer-container {
+                    flex-direction: column;
+                    text-align: center;
+                }
+
+                .footer-links {
+                    justify-content: center;
+                }
+
+                .auth-btn {
+                    padding: 0.5rem 1rem;
+                    min-width: auto;
+                    font-size: 0.9rem;
+                }
+            }
+
+            @media (max-width: 480px) {
+                .auth-btn {
+                    padding: 0.4rem 0.8rem;
+                    font-size: 0.85rem;
+                }
             }
 
             .burger-new {
@@ -331,80 +385,57 @@
                     display: none !important;
                 }
             }
-
-            @media (max-width: 600px) {
-                .footer-row {
-                    flex-direction: column;
-                    text-align: center;
-                    gap: 1.5rem;
-                }
-
-                .footer-brand {
-                    justify-content: center;
-                }
-
-                .footer-links {
-                    justify-content: center;
-                }
-
-                .footer-extra {
-                    text-align: center;
-                }
-            }
-
-            .main-content {
-                flex: 1;
-                padding: 2rem 5%;
-                max-width: 1200px;
-                margin: 0 auto;
-                width: 100%;
-            }
         </style>
+        {% block stylesheets %}
+        {% endblock %}
     </head>
     <body>
         <!-- Barre de navigation principale
              - Structure flexible pour tous les écrans
              - Logo, liens et actions organisés -->
         <nav class="navbar">
-            <a href="/" class="navbar-logo">
-                <img src="/image/logopingcdj.png" alt="CDJ Villereau Logo">
+            <a href="{{ path('app_accueil') }}" class="navbar-logo">
+                <img src="{{ asset('image/logopingcdj.png') }}" alt="CDJ Villereau Logo">
             </a>
             <!-- Liens de navigation
                  - Structure sémantique
                  - Accessibilité préservée -->
             <div class="navbar-links">
+                <a href="{{ path('app_accueil') }}" class="nav-link">Accueil</a>
+                <a href="{{ path('app_actualite') }}" class="nav-link">Actualités</a>
+                <a href="{{ path('app_entrainement') }}" class="nav-link">Entraînements</a>
+                <a href="{{ path('app_adhesion') }}" class="nav-link">Adhésion</a>
                 <div class="dropdown">
-                    <a href="/accueil" class="nav-link">Le Club</a>
+                    <a href="#" class="nav-link">Le club</a>
                     <div class="dropdown-content">
-                        <a href="/entrainement">Entrainement</a>
-                        <a href="/adhesion">Adhesion</a>
-                        <a href="/contact">Contact</a>
+                        <a href="{{ path('app_partenaire') }}">Nos partenaires</a>
+                        <a href="{{ path('app_contact') }}">Contact</a>
+                        <a href="{{ path('app_avis') }}">Avis</a>
                     </div>
                 </div>
-                <a href="/actualite" class="nav-link">Actualités du Ping</a>
-                <a href="/partenaire" class="nav-link">Partenaires</a>
-                <a href="/avis" class="nav-link">Vos avis</a>
             </div>
-            <!-- Actions de la barre de navigation
-                 - Boutons d'action principaux
-                 - Style cohérent avec le thème -->
-            <div class="navbar-actions">
-                <a href="/connexion" class="auth-btn">Connexion</a>
-            </div>
+            {% if is_granted('ROLE_LICENCIE') %}
+                <a href="{{ path('app_logout') }}" class="logout-btn" title="Déconnexion">
+                    <i class="fas fa-sign-out-alt"></i>
+                </a>
+            {% else %}
+                <a href="{{ path('app_connexion') }}" class="auth-btn">
+                    <i class="fas fa-user"></i> Espace Licencié
+                </a>
+            {% endif %}
             <button class="burger-new" id="burgerBtn" aria-label="Menu" type="button">
                 <span></span>
             </button>
             <div class="menu-overlay" id="menuOverlay">
                 <nav class="menu-drawer">
                     <ul>
-                        <li><a href="/accueil">Le Club</a></li>
-                        <li><a href="/entrainement">Entrainement</a></li>
-                        <li><a href="/adhesion">Adhesion</a></li>
-                        <li><a href="/actualite">Actualités du Ping</a></li>
-                        <li><a href="/partenaire">Partenaires</a></li>
-                        <li><a href="/contact">Contact</a></li>
-                        <li><a href="/avis">Vos avis</a></li>
-                        <li><a href="/connexion">Connexion</a></li>
+                        <li><a href="{{ path('app_accueil') }}">Le Club</a></li>
+                        <li><a href="{{ path('app_entrainement') }}">Entrainement</a></li>
+                        <li><a href="{{ path('app_adhesion') }}">Adhesion</a></li>
+                        <li><a href="{{ path('app_actualite') }}">Actualités du Ping</a></li>
+                        <li><a href="{{ path('app_contact') }}">Contact</a></li>
+                        <li><a href="{{ path('app_avis') }}">Vos avis</a></li>
+                        <li><a href="{{ path('app_connexion') }}">Espace Licencié</a></li>
                     </ul>
                 </nav>
             </div>
@@ -418,21 +449,13 @@
         <!-- Footer légal et informatif -->
         <footer class="site-footer">
             <div class="footer-container">
-                <div class="footer-row">
-                    <div class="footer-brand">
-                        <span>CDJ Villereau © {{ "now"|date("Y") }}</span>
-                    </div>
-                    <nav class="footer-links">
-                        <a href="/mentions-legales">Mentions légales</a>
-                        <a href="/confidentialite">Politique de confidentialité</a>
-                        <a href="/contact">Contact</a>
-                        <a href="/accessibilite">Accessibilité</a>
-                        <a href="/cookies">Gestion des cookies</a>
-                    </nav>
-                    <div class="footer-extra">
-                        <span>Association loi 1901 - SIRET : [à compléter] - Siège : [adresse à compléter]</span>
-                    </div>
-                </div>
+                <span>CDJ Villereau © {{ "now"|date("Y") }}</span>
+                <nav class="footer-links">
+                    <a href="{{ path('mentions_legales') }}">Mentions légales</a>
+                    <a href="{{ path('confidentialite') }}">Politique de confidentialité</a>
+                    <a href="{{ path('accessibilite') }}">Accessibilité</a>
+                    <a href="{{ path('cookies') }}">Gestion des cookies</a>
+                </nav>
             </div>
         </footer>
         <script>

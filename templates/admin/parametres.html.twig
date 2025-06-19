@@ -1,0 +1,80 @@
+{% extends 'admin/base_admin.html.twig' %}
+
+{% block title %}Paramètres du site{% endblock %}
+
+{% block body %}
+    <div class="admin-header">
+        <h1 class="mb-0">Paramètres du site</h1>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Informations du club</h5>
+                </div>
+                <div class="card-body">
+                    <form>
+                        <div class="mb-3">
+                            <label class="form-label">Nom du club</label>
+                            <input type="text" class="form-control" value="CDJ Villereau" disabled>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Adresse email</label>
+                            <input type="email" class="form-control" value="contact@cdjvillereau.fr">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Téléphone</label>
+                            <input type="tel" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Adresse</label>
+                            <textarea class="form-control" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Enregistrer
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Réseaux sociaux</h5>
+                </div>
+                <div class="card-body">
+                    <form>
+                        <div class="mb-3">
+                            <label class="form-label">Facebook</label>
+                            <input type="url" class="form-control" placeholder="URL de la page Facebook">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Instagram</label>
+                            <input type="url" class="form-control" placeholder="URL du compte Instagram">
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Enregistrer
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Maintenance</h5>
+                </div>
+                <div class="card-body">
+                    <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" type="checkbox" id="maintenanceMode">
+                        <label class="form-check-label" for="maintenanceMode">Mode maintenance</label>
+                    </div>
+                    <button type="button" class="btn btn-warning">
+                        <i class="fas fa-broom"></i> Vider le cache
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %} 

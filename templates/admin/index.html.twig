@@ -1,21 +1,140 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin/base_admin.html.twig' %}
 
-{% block title %}Admin - CDJ Villereau{% endblock %}
+{% block title %}Tableau de bord{% endblock %}
 
 {% block body %}
-    <div class="container" style="max-width: 600px; margin: 2rem auto;">
-        <h1>Admin - Création d'un licencié</h1>
-        {% if success %}
-            <div style="background: #d4edda; color: #155724; border: 1px solid #c3e6cb; padding: 1rem; border-radius: 6px; margin-bottom: 1.5rem;">
-                Le licencié et son compte utilisateur ont bien été créés. Un email a été envoyé avec les identifiants.
+    <div class="admin-header">
+        <h1 class="mb-0">Tableau de bord</h1>
+    </div>
+
+    <!-- Statistiques -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="stats-card">
+                <h3>Articles</h3>
+                <div class="number">{{ stats.articles ?? 0 }}</div>
             </div>
-        {% endif %}
-        {{ form_start(form_licencie) }}
-            {{ form_row(form_licencie.firstName) }}
-            {{ form_row(form_licencie.lastName) }}
-            {{ form_row(form_licencie.email) }}
-            {{ form_row(form_licencie.birthDate) }}
-            <button class="btn btn-primary" type="submit">Créer le licencié</button>
-        {{ form_end(form_licencie) }}
+        </div>
+        <div class="col-md-3">
+            <div class="stats-card">
+                <h3>Licenciés</h3>
+                <div class="number">{{ stats.licencies ?? 0 }}</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stats-card">
+                <h3>Avis</h3>
+                <div class="number">{{ stats.avis ?? 0 }}</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stats-card">
+                <h3>Utilisateurs</h3>
+                <div class="number">{{ stats.users ?? 0 }}</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Actions rapides -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Actions rapides</h5>
+                </div>
+                <div class="card-body">
+                    <div class="d-grid gap-2">
+                        <a href="{{ path('admin_article_new') }}" class="btn btn-primary">
+                            <i class="fas fa-plus-circle"></i> Nouvel article
+                        </a>
+                        <a href="{{ path('admin_licencie_new') }}" class="btn btn-success">
+                            <i class="fas fa-user-plus"></i> Nouveau licencié
+                        </a>
+                        <a href="{{ path('admin_parametres') }}" class="btn btn-info text-white">
+                            <i class="fas fa-cog"></i> Paramètres du site
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Derniers avis</h5>
+                </div>
+                <div class="card-body">
+                    {% if stats.recent_avis is defined and stats.recent_avis|length > 0 %}
+                        <div class="list-group">
+                            {% for avis in stats.recent_avis %}
+                                <div class="list-group-item">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h6 class="mb-1">{{ avis.name }}</h6>
+                                        <small>{{ avis.createdAt|date('d/m/Y') }}</small>
+                                    </div>
+                                    <p class="mb-1">{{ avis.comment|slice(0, 100) }}...</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <small>Note : {{ avis.rating }}/5</small>
+                                        <a href="{{ path('admin_avis') }}" class="btn btn-primary btn-sm">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <p class="text-muted mb-0">Aucun avis récent</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Derniers licenciés -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Derniers licenciés inscrits</h5>
+                </div>
+                <div class="card-body">
+                    {% if stats.recent_licencies is defined and stats.recent_licencies|length > 0 %}
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Nom</th>
+                                        <th>Prénom</th>
+                                        <th>Email</th>
+                                        <th>Date d'inscription</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for licencie in stats.recent_licencies %}
+                                        <tr>
+                                            <td>{{ licencie.lastName }}</td>
+                                            <td>{{ licencie.firstName }}</td>
+                                            <td>{{ licencie.email }}</td>
+                                            <td>{{ licencie.user.createdAt ? licencie.user.createdAt|date('d/m/Y') : 'N/A' }}</td>
+                                            <td>
+                                                <button class="btn btn-warning btn-sm">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                                <button class="btn btn-danger btn-sm">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <p class="text-muted mb-0">Aucun licencié récent</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}

@@ -1,0 +1,80 @@
+{% extends 'admin/base_admin.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .tox-tinymce {
+            margin-bottom: 1rem;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="admin-header d-flex justify-content-between align-items-center">
+        <h1 class="mb-0">{{ title }}</h1>
+        <a href="{{ path('admin_articles') }}" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Retour à la liste
+        </a>
+    </div>
+
+    {% for message in app.flashes('error') %}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endfor %}
+
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <div class="card">
+                <div class="card-body">
+                    {{ form_start(form) }}
+                        {{ form_row(form.title) }}
+                        {{ form_row(form.content, {
+                            'attr': {
+                                'class': 'form-control',
+                                'rows': 15,
+                                'style': 'resize: vertical;'
+                            }
+                        }) }}
+                        
+                        <div class="mb-3">
+                            {{ form_label(form.image) }}
+                            {{ form_widget(form.image, {'attr': {'class': 'form-control'}}) }}
+                            {% if article is defined and article.image %}
+                                <div class="mt-2">
+                                    <p class="mb-1">Image actuelle :</p>
+                                    <img src="{{ asset('uploads/images/' ~ article.image) }}" alt="Image actuelle" class="img-thumbnail" style="max-height: 200px">
+                                </div>
+                            {% endif %}
+                            {{ form_help(form.image) }}
+                            {{ form_errors(form.image) }}
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> {{ article is defined ? 'Mettre à jour' : 'Créer' }}
+                            </button>
+                        </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+            selector: '.tinymce',
+            plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
+            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
+            language: 'fr_FR',
+            height: 400
+        });
+    </script>
+{% endblock %} 
