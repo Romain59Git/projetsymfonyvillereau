@@ -30,7 +30,8 @@ class Article
     #[ORM\PrePersist]
     public function setCreatedAtValue(): void
     {
-        $this->createdAt = new \DateTimeImmutable();
+        $timezone = new \DateTimeZone('Europe/Paris');
+        $this->createdAt = new \DateTimeImmutable('now', $timezone);
     }
 
     public function getId(): ?int

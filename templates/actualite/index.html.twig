@@ -4,161 +4,116 @@
 
 {% block body %}
 <style>
-.tournoi {
-    max-width: 1200px;
-    margin: 2rem auto;
-    padding: 2rem;
-}
+    .articles-container {
+        max-width: 1200px;
+        margin: 2rem auto;
+        padding: 0 1rem;
+    }
 
-.tournoi-content {
-    display: flex;
-    gap: 2rem;
-    align-items: flex-start;
-}
+    .article-card {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-bottom: 2rem;
+        overflow: hidden;
+        transition: transform 0.3s ease;
+        display: flex;
+    }
 
-.tournoi-image {
-    flex: 0 0 40%;
-}
+    .article-card:hover {
+        transform: translateY(-5px);
+    }
 
-.tournoi-text {
-    flex: 0 0 55%;
-}
+    .article-image-container {
+        flex: 0 0 400px;
+        position: relative;
+        overflow: hidden;
+    }
 
-.tournoi img {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    margin-bottom: 1.5rem;
-}
+    .article-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
 
-.tournoi h2 {
-    color: #e74c3c;
-    text-align: center;
-    margin-bottom: 1rem;
-}
-
-.intro-text {
-    text-align: center;
-    font-size: 1.2rem;
-    margin-bottom: 2rem;
-    color: #2c3e50;
-    line-height: 1.6;
-}
-
-.info-card {
-    background-color: #f8f9fa;
-    border-radius: 8px;
-    padding: 1.5rem;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.info-card h3 {
-    color: #2c3e50;
-    margin-top: 0;
-    margin-bottom: 1.2rem;
-    font-size: 1.5rem;
-    border-bottom: 2px solid #e74c3c;
-    padding-bottom: 0.5rem;
-}
-
-.info-card ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.info-card li {
-    margin-bottom: 1rem;
-    color: #2c3e50;
-    font-size: 1.1rem;
-}
-
-.info-card strong {
-    color: #e74c3c;
-    margin-right: 0.5rem;
-}
-
-.tournoi h3 {
-    color: #2c3e50;
-    margin-top: 1.5rem;
-}
-
-.cta {
-    background-color: #f8f9fa;
-    padding: 1.5rem;
-    border-radius: 8px;
-    margin: 2rem 0;
-    text-align: center;
-}
-
-.conclusion {
-    font-style: italic;
-    text-align: center;
-    color: #2c3e50;
-    margin-top: 2rem;
-}
-
-@media (max-width: 768px) {
-    .tournoi-content {
+    .article-content {
+        flex: 1;
+        padding: 1.5rem;
+        display: flex;
         flex-direction: column;
     }
-    
-    .tournoi-image, .tournoi-text {
-        flex: 0 0 100%;
+
+    .article-title {
+        color: var(--primary-color);
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
     }
-}
+
+    .article-meta {
+        color: #666;
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+    }
+
+    .article-text {
+        color: #333;
+        line-height: 1.6;
+        flex-grow: 1;
+    }
+
+    .no-articles {
+        text-align: center;
+        padding: 3rem;
+        color: #666;
+        font-style: italic;
+    }
+
+    @media (max-width: 992px) {
+        .article-card {
+            flex-direction: column;
+        }
+
+        .article-image-container {
+            flex: 0 0 300px;
+            width: 100%;
+        }
+
+        .article-content {
+            padding: 1.5rem;
+        }
+
+        .article-title {
+            font-size: 1.5rem;
+        }
+    }
 </style>
 
-<section id="tournoi-amical-annuel" class="tournoi">
-    <h2>🎉 Tournoi Amical Annuel – TT Villereau‑Herbignies 🎉</h2>
-    
-    <p class="intro-text">
-        Chaque année, le TT Villereau‑Herbignies vous ouvre grand ses portes pour un moment de pure convivialité et de sportivité : notre Tournoi Amical Annuel revient plus en forme que jamais !
-    </p>
+<div class="articles-container">
+    <h1 class="mb-4">Actualités du club</h1>
 
-    <div class="tournoi-content">
-        <div class="tournoi-image">
-            <img src="{{ asset('image/affichetournoi.jpg') }}" alt="Affiche du tournoi de tennis de table">
-            <div class="info-card">
-                <h3>Infos pratiques</h3>
-                <ul>
-                    <li><strong>Date :</strong> Dimanche 5 octobre 2025</li>
-                    <li><strong>Horaires :</strong> Accueil des participants dès 7h30, début des matchs à 90h00</li>
-                    <li><strong>Lieu :</strong> Gymnase municipal de Villereau‑Herbignies (59)</li>
-                </ul>
-            </div>
+    {% if articles is empty %}
+        <div class="no-articles">
+            <p>Aucun article n'a été publié pour le moment.</p>
         </div>
-
-        <div class="tournoi-text">
-            <h3>Qui peut participer ?</h3>
-            <ul>
-                <li><strong>Tous niveaux :</strong> des débutants qui posent leur première balle plastique aux pongistes confirmés prêts à enchaîner les smashs.</li>
-                <li><strong>Toutes catégories :</strong> jeunes, adultes, vétérans… chacun trouvera sa place et son challenge.</li>
-            </ul>
-
-            <h3>Pourquoi s'inscrire ?</h3>
-            <ul>
-                <li><strong>L'esprit du club :</strong> ici, on joue avec le cœur ! Des échanges rythmés, des rires et des encouragements à chaque point marqué.</li>
-                <li><strong>Des rencontres humaines :</strong> c'est l'occasion idéale de tisser des liens, découvrir de nouveaux adversaires et partager les astuces de chacun.</li>
-                <li><strong>Ambiance festive :</strong> musique live en fond, animations ludiques entre les matchs et remises de prix chaleureuses.</li>
-            </ul>
-
-            <h3>Confort et gourmandises</h3>
-            <ul>
-                <li><strong>Bar et restauration sur place :</strong> viennoiseries le matin, sandwichs et wraps à midi, douceurs sucrées toute la journée.</li>
-                <li><strong>Boissons fraîches et chaudes :</strong> café, jus de fruits, sodas, bières locales pour se désaltérer entre deux parties.</li>
-            </ul>
-
-            <p class="cta">
-                🔔 <strong>Inscriptions ouvertes !</strong><br>
-                Pour garantir ta place, inscris‑toi vite via notre formulaire en ligne ou directement au club lors des entraînements. Les premières tables vont s'enflammer… et tu ne voudras pas manquer ça !
-            </p>
-
-            <p class="conclusion">
-                Rejoins‑nous pour vivre une journée pleine d'adrénaline, de partage et de passion pongiste : <em>ta meilleure frappe n'attend que ce tournoi !</em>
-            </p>
-        </div>
-    </div>
-</section>
+    {% else %}
+        {% for article in articles %}
+            <article class="article-card">
+                {% if article.image %}
+                    <div class="article-image-container">
+                        <img src="{{ asset('image/' ~ article.image) }}" alt="{{ article.title }}" class="article-image">
+                    </div>
+                {% endif %}
+                <div class="article-content">
+                    <h2 class="article-title">{{ article.title }}</h2>
+                    <div class="article-meta">
+                        Publié le {{ article.createdAt|format_datetime('full', 'short', locale='fr') }}
+                    </div>
+                    <div class="article-text">
+                        {{ article.content|raw }}
+                    </div>
+                </div>
+            </article>
+        {% endfor %}
+    {% endif %}
+</div>
 {% endblock %}
