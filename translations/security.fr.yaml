@@ -1,0 +1,4 @@
+"Invalid credentials.": "Identifiants invalides."
+"Invalid CSRF token.": "Jeton CSRF invalide."
+"Username could not be found.": "Cet email n'est pas enregistré."
+"The presented password is invalid.": "Le mot de passe est incorrect." 
