@@ -103,6 +103,15 @@
         max-width: 900px;
         line-height: 1.7;
     }
+    .salle-image {
+        width: 100%;
+        max-width: 1100px;
+        height: auto;
+        margin: 2.5rem auto;
+        border-radius: 16px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        display: block;
+    }
     @media (max-width: 900px) {
         .cards-container {
             flex-direction: column;
@@ -114,6 +123,10 @@
             max-width: 98vw;
             min-width: 0;
             padding: 1.2rem 1rem 1rem 1rem;
+        }
+        .salle-image {
+            border-radius: 12px;
+            margin: 2rem auto;
         }
     }
 </style>
@@ -138,6 +151,8 @@
             <em>"Plus qu'un club, une famille" n'est pas qu'un slogan : c'est notre engagement au quotidien.</em>
         </div>
     </div>
+
+    <img src="{{ asset('image/photosalleping.jpg') }}" alt="Notre salle d'entraînement" class="salle-image">
     
     <p class="final-paragraph">Prêt à taper la balle avec nous ? 
     Venez nous rencontrer aux horaires d'entraînement, 

@@ -64,6 +64,21 @@
                 width: auto;
                 object-fit: contain;
             }
+
+            .social-icon {
+                color: var(--secondary-color);
+                font-size: 1.5rem;
+                text-decoration: none;
+                margin-left: 1rem;
+                transition: var(--transition);
+                display: flex;
+                align-items: center;
+            }
+
+            .social-icon:hover {
+                color: #1877f2;
+                transform: scale(1.1);
+            }
             
             .navbar-links {
                 display: flex;
@@ -395,7 +410,10 @@
              - Logo, liens et actions organisés -->
         <nav class="navbar">
             <a href="{{ path('app_accueil') }}" class="navbar-logo">
-                <img src="{{ asset('image/logopingcdj.png') }}" alt="CDJ Villereau Logo">
+                <img src="{{ asset('image/logopingcdj.png') }}" alt="Logo CDJ Villereau">
+                <a href="https://www.facebook.com/groups/1145118592325402/" class="social-icon" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-facebook"></i>
+                </a>
             </a>
             <!-- Liens de navigation
                  - Structure sémantique
