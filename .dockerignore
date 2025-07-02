@@ -1,0 +1,64 @@
+# ================================================================================
+# DOCKERIGNORE - Optimiser les builds Docker
+# ================================================================================
+
+# Fichiers Git
+.git/
+.gitignore
+
+# Fichiers d'environnement (secrets)
+.env.local
+.env.*.local
+.env.prod
+
+# Dépendances (installées dans le Dockerfile)
+/vendor/
+/node_modules/
+
+# Cache et fichiers temporaires
+/var/cache/
+/var/log/
+/var/sessions/
+/.phpunit.cache/
+
+# Tests
+/tests/
+/phpunit.xml
+/phpunit.dist.xml
+
+# Documentation et développement
+README.md
+*.md
+.editorconfig
+
+# Fichiers système
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# IDE
+.vscode/
+.idea/
+*.sublime-*
+
+# Assets source (compilés dans le build)
+/assets/vendor/
+
+# Backups et dumps
+/backups/
+*.sql
+*.dump
+
+# Logs
+*.log
+
+# Docker
+Dockerfile
+docker-compose*.yml
+docker-compose*.yaml
+.dockerignore
+
+# Configuration locale de développement
+compose.override.yaml

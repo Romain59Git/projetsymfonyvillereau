@@ -1,0 +1,108 @@
+# ================================================================================
+# DOCKER COMPOSE POUR PRODUCTION - compose.prod.yaml
+# ================================================================================
+# Usage: docker-compose -f compose.yaml -f compose.prod.yaml up -d
+# ================================================================================
+
+services:
+  # Application Symfony
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: villereau_app_prod
+    restart: unless-stopped
+    networks:
+      - app-network
+    volumes:
+      # Logs persistants
+      - ./var/log:/var/www/symfony/var/log
+      # Upload/cache persistants
+      - app_uploads:/var/www/symfony/public/uploads
+    environment:
+      - APP_ENV=prod
+      - APP_DEBUG=0
+    depends_on:
+      database:
+        condition: service_healthy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.app.rule=Host(`villereau.example.com`)"
+      - "traefik.http.routers.app.tls=true"
+      - "traefik.http.routers.app.tls.certresolver=letsencrypt"
+
+  # Base de données PostgreSQL
+  database:
+    image: postgres:16-alpine
+    container_name: villereau_db_prod
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-villereau_prod}
+      POSTGRES_USER: ${POSTGRES_USER:-villereau_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}  # Défini dans .env.prod
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      # Backup automatique
+      - ./backups:/backups
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    # Pas de ports exposés en production pour la sécurité
+
+  # Reverse Proxy (optionnel mais recommandé)
+  traefik:
+    image: traefik:v3.0
+    container_name: villereau_proxy_prod
+    restart: unless-stopped
+    command:
+      - "--api.dashboard=false"  # Dashboard désactivé en prod
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      - "--certificatesresolvers.letsencrypt.acme.tlschallenge=true"
+      - "--certificatesresolvers.letsencrypt.acme.email=admin@example.com"
+      - "--certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json"
+      - "--global.checknewversion=false"
+      - "--global.sendanonymoususage=false"
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - letsencrypt_data:/letsencrypt
+    networks:
+      - app-network
+
+  # Service de monitoring (optionnel)
+  watchtower:
+    image: containrrr/watchtower
+    container_name: villereau_watchtower_prod
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - WATCHTOWER_CLEANUP=true
+      - WATCHTOWER_SCHEDULE=0 0 4 * * *  # Mise à jour à 4h du matin
+    networks:
+      - app-network
+
+# Réseaux
+networks:
+  app-network:
+    driver: bridge
+    name: villereau_network
+
+# Volumes persistants
+volumes:
+  postgres_data:
+    name: villereau_postgres_data
+  app_uploads:
+    name: villereau_uploads
+  letsencrypt_data:
+    name: villereau_letsencrypt

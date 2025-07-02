@@ -1,0 +1,101 @@
+# ================================================================================
+# DOCKER COMPOSE MONITORING - docker-compose.monitoring.yaml  
+# ================================================================================
+# Usage: docker-compose -f compose.yaml -f compose.prod.yaml -f docker-compose.monitoring.yaml up -d
+# ================================================================================
+
+services:
+  # Prometheus - Collecte des métriques
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: villereau_prometheus
+    restart: unless-stopped
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--web.enable-lifecycle'
+    networks:
+      - app-network
+
+  # Grafana - Visualisation des métriques
+  grafana:
+    image: grafana/grafana:latest
+    container_name: villereau_grafana
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./monitoring/grafana/dashboards:/etc/grafana/provisioning/dashboards
+      - ./monitoring/grafana/datasources:/etc/grafana/provisioning/datasources
+    networks:
+      - app-network
+
+  # Node Exporter - Métriques système
+  node-exporter:
+    image: prom/node-exporter:latest
+    container_name: villereau_node_exporter
+    restart: unless-stopped
+    ports:
+      - "9100:9100"
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.rootfs=/rootfs'
+      - '--path.sysfs=/host/sys'
+      - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
+    networks:
+      - app-network
+
+  # Loki - Centralisation des logs
+  loki:
+    image: grafana/loki:latest
+    container_name: villereau_loki
+    restart: unless-stopped
+    ports:
+      - "3100:3100"
+    volumes:
+      - loki_data:/loki
+      - ./monitoring/loki.yml:/etc/loki/local-config.yaml
+    command: -config.file=/etc/loki/local-config.yaml
+    networks:
+      - app-network
+
+  # Promtail - Agent de collecte des logs
+  promtail:
+    image: grafana/promtail:latest
+    container_name: villereau_promtail
+    restart: unless-stopped
+    volumes:
+      - ./var/log:/var/log:ro
+      - ./monitoring/promtail.yml:/etc/promtail/config.yml
+    command: -config.file=/etc/promtail/config.yml
+    networks:
+      - app-network
+
+# Volumes pour le monitoring
+volumes:
+  prometheus_data:
+    name: villereau_prometheus_data
+  grafana_data:
+    name: villereau_grafana_data
+  loki_data:
+    name: villereau_loki_data
+
+# Utilise le réseau existant
+networks:
+  app-network:
+    external: true
+    name: villereau_network 

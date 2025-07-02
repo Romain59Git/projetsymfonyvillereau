@@ -1,11 +1,35 @@
+# ================================================================================
+# DOCKER COMPOSE BASE - compose.yaml
+# ================================================================================
+# Utilisé en développement avec compose.override.yaml
+# Utilisé en production avec compose.prod.yaml
+# ================================================================================
 
 services:
-###> doctrine/doctrine-bundle ###
+  # Application Symfony (configuration de base)
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: ${BUILD_TARGET:-development}  # production en prod, development en dev
+    container_name: villereau_app
+    networks:
+      - app-network
+    volumes:
+      # Code source (seulement en développement via override)
+      - .:/var/www/symfony
+    environment:
+      - APP_ENV=${APP_ENV:-dev}
+    depends_on:
+      database:
+        condition: service_healthy
+
+  # Base de données PostgreSQL (configuration commune)
   database:
     image: postgres:${POSTGRES_VERSION:-16}-alpine
+    container_name: villereau_db
     environment:
       POSTGRES_DB: ${POSTGRES_DB:-app}
-      # You should definitely change the password in production
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-!ChangeMe!}
       POSTGRES_USER: ${POSTGRES_USER:-app}
     healthcheck:
@@ -15,11 +39,15 @@ services:
       start_period: 60s
     volumes:
       - database_data:/var/lib/postgresql/data:rw
-      # You may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
-      # - ./docker/db/data:/var/lib/postgresql/data:rw
-###< doctrine/doctrine-bundle ###
+    networks:
+      - app-network
 
+# Réseaux
+networks:
+  app-network:
+    driver: bridge
+
+# Volumes
 volumes:
-###> doctrine/doctrine-bundle ###
   database_data:
-###< doctrine/doctrine-bundle ###
+    driver: local
