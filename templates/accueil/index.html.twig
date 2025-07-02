@@ -3,138 +3,6 @@
 {% block title %}Accueil - CDJ Villereau{% endblock %}
 
 {% block body %}
-<style>
-    .subtitle-simple {
-        font-size: 1.5rem;
-        margin-bottom: 1.5rem;
-        color: #333;
-        text-align: center;
-        font-weight: normal;
-        background: none;
-        border: none;
-        box-shadow: none;
-        padding: 0;
-        margin: 1rem auto 1.5rem auto;
-    }
-
-    .subtitle-simple::before,
-    .subtitle-simple::after {
-        display: none;
-    }
-    .cards-container {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 2.2rem;
-        justify-content: center;
-        align-items: stretch;
-        margin: 2.5rem auto 0 auto;
-        max-width: 1100px;
-    }
-    .card-custom {
-        background: #fff;
-        border-radius: 28px;
-        box-shadow: 0 2px 16px rgba(0,0,0,0.07);
-        padding: 2.3rem 2.5rem 1.7rem 2.5rem;
-        min-width: 320px;
-        max-width: 500px;
-        flex: 1 1 340px;
-        color: #222;
-        font-size: 1.12rem;
-        line-height: 1.7;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-    }
-    .card-custom h2 {
-        font-size: 1.25rem;
-        font-weight: bold;
-        margin-bottom: 1.1rem;
-        color: #222;
-        line-height: 1.2;
-    }
-    .card-custom ul {
-        margin-left: 1.1rem;
-        margin-bottom: 1.2rem;
-        padding-left: 0.5rem;
-    }
-    .card-custom li {
-        margin-bottom: 0.6rem;
-        color: #444;
-        font-size: 1.08rem;
-        line-height: 1.7;
-    }
-    .card-custom ul ul {
-        margin-top: 0.3rem;
-        margin-bottom: 0.3rem;
-        padding-left: 1.2rem;
-    }
-    .card-custom em {
-        display: block;
-        margin-top: 1.2rem;
-        color: #888;
-        font-size: 1.13rem;
-        font-style: italic;
-        opacity: 0.95;
-        text-align: center;
-        word-break: break-word;
-        white-space: normal;
-        max-width: 100%;
-    }
-    .card-custom b {
-        color: #222;
-    }
-    .card-custom li::marker {
-        color: #bbb;
-        font-size: 1.1em;
-    }
-    .card-custom ul ul li::marker {
-        color: #ccc;
-    }
-    .intro-text {
-        color: #444;
-        font-size: 1.12rem;
-        line-height: 1.7;
-        margin: 0 auto 0.7rem auto;
-        max-width: 900px;
-        text-align: center;
-    }
-    .final-paragraph {
-        color: #555;
-        font-size: 1.08rem;
-        margin: 2.2rem auto 1.5rem auto;
-        text-align: center;
-        max-width: 900px;
-        line-height: 1.7;
-    }
-    .salle-image {
-        width: 50%;
-        max-width: 550px;
-        height: auto;
-        margin: 2.5rem auto;
-        border-radius: 16px;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-        display: block;
-    }
-    @media (max-width: 900px) {
-        .cards-container {
-            flex-direction: column;
-            gap: 1.5rem;
-            align-items: center;
-        }
-        .card-custom {
-            width: 100%;
-            max-width: 98vw;
-            min-width: 0;
-            padding: 1.2rem 1rem 1rem 1rem;
-        }
-        .salle-image {
-            width: 90%;
-            max-width: 98vw;
-            border-radius: 12px;
-            margin: 2rem auto;
-        }
-    }
-</style>
 
 <div class="wrapper">
     <h1 class="main-title">Bienvenue au CDJ Villereau</h1>
@@ -156,12 +24,12 @@
             <em>"Plus qu'un club, une famille" n'est pas qu'un slogan : c'est notre engagement au quotidien.</em>
         </div>
     </div>
-
-    <img src="{{ asset('image/photosalleping.jpg') }}" alt="Notre salle d'entraînement" class="salle-image">
     
     <p class="final-paragraph">Prêt à taper la balle avec nous ? 
     Venez nous rencontrer aux horaires d'entraînement, 
     ou <a href="/contact">contactez-nous</a> pour toute question !</p>
+
+    <img src="{{ asset('image/photosalleping.jpg') }}" alt="Notre salle d'entraînement" class="salle-image">
 
 </div>
 {% endblock %}
