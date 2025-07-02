@@ -538,15 +538,15 @@
                 <div class="dropdown">
                     <a href="#" class="nav-link">Le club</a>
                     <div class="dropdown-content">
+                        <a href="{{ path('app_accueil') }}">Accueil</a>
+                        <a href="{{ path('app_entrainement') }}">Entraînements</a>
+                        <a href="{{ path('app_adhesion') }}">Adhésion</a>
                         <a href="{{ path('app_partenaire') }}">Nos partenaires</a>
                         <a href="{{ path('app_contact') }}">Contact</a>
                         <a href="{{ path('app_avis') }}">Avis</a>
                     </div>
                 </div>
-                <a href="{{ path('app_accueil') }}" class="nav-link">Accueil</a>
                 <a href="{{ path('app_actualite') }}" class="nav-link">Actualités</a>
-                <a href="{{ path('app_entrainement') }}" class="nav-link">Entraînements</a>
-                <a href="{{ path('app_adhesion') }}" class="nav-link">Adhésion</a>
             </div>
             {% if is_granted('ROLE_LICENCIE') %}
                 <a href="{{ path('app_logout') }}" class="logout-btn" title="Déconnexion">
@@ -566,13 +566,12 @@
                         <i class="fas fa-times"></i>
                     </button>
                     <ul>
+                        <li><a href="{{ path('app_accueil') }}">Accueil</a></li>
+                        <li><a href="{{ path('app_entrainement') }}">Entraînements</a></li>
+                        <li><a href="{{ path('app_adhesion') }}">Adhésion</a></li>
                         <li><a href="{{ path('app_partenaire') }}">Nos partenaires</a></li>
                         <li><a href="{{ path('app_contact') }}">Contact</a></li>
                         <li><a href="{{ path('app_avis') }}">Vos avis</a></li>
-                        <li><a href="{{ path('app_accueil') }}">Accueil</a></li>
-                        <li><a href="{{ path('app_actualite') }}">Actualités</a></li>
-                        <li><a href="{{ path('app_entrainement') }}">Entraînements</a></li>
-                        <li><a href="{{ path('app_adhesion') }}">Adhésion</a></li>
                         {% if is_granted('ROLE_LICENCIE') %}
                             <li><a href="{{ path('app_logout') }}"><i class="fas fa-sign-out-alt"></i> Déconnexion</a></li>
                         {% else %}
