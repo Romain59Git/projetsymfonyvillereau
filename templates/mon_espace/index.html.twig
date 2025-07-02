@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon Espace - CDJ Villereau{% endblock %}
+
+{% block body %}
+<div class="wrapper">
+    <h1 class="main-title">Mon Espace Licencié</h1>
+    <h2 class="subtitle-simple">Prochaines rencontres & compositions d'équipe</h2>
+
+    <div class="cards-container">
+        <div class="card-custom large">
+            <h2>Équipes à affronter</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Adversaire</th>
+                        <th>Lieu</th>
+                        <th>Heure</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td colspan="4" style="text-align:center;color:#888;">Aucune rencontre programmée pour le moment.</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="card-custom large">
+            <h2>Composition de l'équipe</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Joueur</th>
+                        <th>Poste</th>
+                        <th>Capitaine</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td colspan="3" style="text-align:center;color:#888;">Aucune composition définie pour le moment.</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %} 

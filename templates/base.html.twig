@@ -547,6 +547,9 @@
                 <a href="{{ path('app_partenaire') }}" class="nav-link">Nos partenaires</a>
                 <a href="{{ path('app_contact') }}" class="nav-link">Contact</a>
                 <a href="{{ path('app_avis') }}" class="nav-link">Avis</a>
+                {% if is_granted('ROLE_LICENCIE') %}
+                    <a href="{{ path('mon_espace') }}" class="nav-link">Mon Espace</a>
+                {% endif %}
             </div>
             {% if is_granted('ROLE_LICENCIE') %}
                 <a href="{{ path('app_logout') }}" class="logout-btn" title="Déconnexion">
@@ -574,6 +577,7 @@
                         <li><a href="{{ path('app_contact') }}">Contact</a></li>
                         <li><a href="{{ path('app_avis') }}">Avis</a></li>
                         {% if is_granted('ROLE_LICENCIE') %}
+                            <li><a href="{{ path('mon_espace') }}">Mon Espace</a></li>
                             <li><a href="{{ path('app_logout') }}"><i class="fas fa-sign-out-alt"></i> Déconnexion</a></li>
                         {% else %}
                             <li><a href="{{ path('app_connexion') }}"><i class="fas fa-user"></i> Espace Licencié</a></li>
