@@ -90,6 +90,9 @@
                         <a class="nav-link {% if app.request.get('_route') starts with 'admin_licencies' %}active{% endif %}" href="{{ path('admin_licencies') }}">
                             <i class="fas fa-users"></i> Licenciés
                         </a>
+                        <a class="nav-link {% if app.request.get('_route') starts with 'admin_rencontre' %}active{% endif %}" href="{{ path('admin_rencontre_index') }}">
+                            <i class="fas fa-users"></i> Rencontres
+                        </a>
                         <a class="nav-link {% if app.request.get('_route') starts with 'admin_avis' %}active{% endif %}" href="{{ path('admin_avis') }}">
                             <i class="fas fa-comments"></i> Avis
                         </a>

@@ -1,0 +1,34 @@
+{% extends 'admin/base_admin.html.twig' %}
+
+{% block title %}Gestion des Rencontres - Admin{% endblock %}
+
+{% block body %}
+<div class="admin-header">
+    <h1>Gestion des Rencontres</h1>
+    <a href="{{ path('admin_rencontre_new') }}" class="btn btn-primary">Nouvelle rencontre</a>
+</div>
+<div class="admin-content">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Adversaire</th>
+                <th>Lieu</th>
+                <th>Heure</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for rencontre in rencontres %}
+            <tr>
+                <td>{{ rencontre.date|date('d/m/Y') }}</td>
+                <td>{{ rencontre.adversaire }}</td>
+                <td>{{ rencontre.lieu }}</td>
+                <td>{{ rencontre.heure }}</td>
+            </tr>
+        {% else %}
+            <tr><td colspan="4" class="text-center text-muted">Aucune rencontre enregistrée.</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %} 
