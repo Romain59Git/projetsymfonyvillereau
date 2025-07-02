@@ -4,19 +4,22 @@
 
 {% block body %}
 <style>
-    .main-title {
-        margin-top: 3.5rem;
-        margin-bottom: 2rem;
-        text-align: center;
-        font-size: 2.4rem;
-        font-weight: bold;
-        color: #222;
-        line-height: 1.2;
-    }
-    .main-title + .main-title {
+    .subtitle-simple {
         font-size: 1.5rem;
         margin-bottom: 1.5rem;
         color: #333;
+        text-align: center;
+        font-weight: normal;
+        background: none;
+        border: none;
+        box-shadow: none;
+        padding: 0;
+        margin: 1rem auto 1.5rem auto;
+    }
+
+    .subtitle-simple::before,
+    .subtitle-simple::after {
+        display: none;
     }
     .cards-container {
         display: flex;
@@ -135,7 +138,7 @@
 
 <div class="wrapper">
     <h1 class="main-title">Bienvenue au CDJ Villereau</h1>
-    <h2 class="main-title">Plus qu'un club, une famille !</h2>
+    <h2 class="subtitle-simple">Plus qu'un club, une famille !</h2>
 
     <p class="intro-text">Au cœur du Nord, notre club réunit 58 licenciés : 27 jeunes et 31 adultes, 
     tous animés par la même passion du tennis de table. Que vous soyez débutant ou joueur confirmé, 
