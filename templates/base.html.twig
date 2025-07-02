@@ -290,7 +290,7 @@
             }
 
             @media (max-width: 800px) {
-                .navbar-links, .navbar-actions {
+                .navbar-links, .auth-btn, .logout-btn {
                     display: none;
                 }
 
@@ -350,7 +350,7 @@
                     right: 0;
                     bottom: 0;
                     background: rgba(0,0,0,0.5);
-                    z-index: 999;
+                    z-index: 9999;
                 }
 
                 .menu-overlay.open {
@@ -367,6 +367,8 @@
                     padding: 2rem;
                     transform: translateX(100%);
                     transition: var(--transition);
+                    z-index: 10000;
+                    box-shadow: -2px 0 10px rgba(0,0,0,0.1);
                 }
 
                 .menu-overlay.open .menu-drawer {
@@ -392,6 +394,24 @@
 
                 .menu-drawer a:hover {
                     color: var(--secondary-color);
+                }
+
+                .close-menu {
+                    position: absolute;
+                    top: 1rem;
+                    right: 1rem;
+                    background: none;
+                    border: none;
+                    font-size: 1.5rem;
+                    color: var(--text-color);
+                    cursor: pointer;
+                    padding: 0.5rem;
+                    border-radius: 50%;
+                    transition: var(--transition);
+                }
+
+                .close-menu:hover {
+                    background-color: var(--light-gray);
                 }
             }
 
@@ -495,6 +515,10 @@
         </style>
         {% block stylesheets %}
         {% endblock %}
+        
+        {% block importmap %}
+            {{ importmap() }}
+        {% endblock %}
     </head>
     <body>
         <!-- Barre de navigation principale
@@ -538,15 +562,23 @@
             </button>
             <div class="menu-overlay" id="menuOverlay">
                 <nav class="menu-drawer">
+                    <button class="close-menu" id="closeMenu" aria-label="Fermer le menu">
+                        <i class="fas fa-times"></i>
+                    </button>
                     <ul>
-                        <li><a href="{{ path('app_accueil') }}">Le Club</a></li>
-                        <li><a href="{{ path('app_entrainement') }}">Entrainement</a></li>
-                        <li><a href="{{ path('app_adhesion') }}">Adhesion</a></li>
-                        <li><a href="{{ path('app_actualite') }}">Actualités du Ping</a></li>
+                        <li><a href="{{ path('app_accueil') }}">Accueil</a></li>
+                        <li><a href="{{ path('app_actualite') }}">Actualités</a></li>
+                        <li><a href="{{ path('app_entrainement') }}">Entraînements</a></li>
+                        <li><a href="{{ path('app_adhesion') }}">Adhésion</a></li>
+                        <li><a href="{{ path('app_partenaire') }}">Nos partenaires</a></li>
                         <li><a href="{{ path('app_contact') }}">Contact</a></li>
                         <li><a href="{{ path('app_avis') }}">Vos avis</a></li>
-                        <li><a href="{{ path('app_connexion') }}">Espace Licencié</a></li>
-                </ul>
+                        {% if is_granted('ROLE_LICENCIE') %}
+                            <li><a href="{{ path('app_logout') }}"><i class="fas fa-sign-out-alt"></i> Déconnexion</a></li>
+                        {% else %}
+                            <li><a href="{{ path('app_connexion') }}"><i class="fas fa-user"></i> Espace Licencié</a></li>
+                        {% endif %}
+                    </ul>
                 </nav>
             </div>
         </nav>
@@ -571,14 +603,35 @@
         <script>
             const burgerBtn = document.getElementById('burgerBtn');
             const menuOverlay = document.getElementById('menuOverlay');
-            burgerBtn.addEventListener('click', function() {
+            const closeMenu = document.getElementById('closeMenu');
+            
+            function toggleMenu() {
                 burgerBtn.classList.toggle('open');
                 menuOverlay.classList.toggle('open');
-            });
+            }
+            
+            function closeMenuFunction() {
+                burgerBtn.classList.remove('open');
+                menuOverlay.classList.remove('open');
+            }
+            
+            // Ouvrir/fermer avec le burger
+            burgerBtn.addEventListener('click', toggleMenu);
+            
+            // Fermer avec le bouton X
+            closeMenu.addEventListener('click', closeMenuFunction);
+            
+            // Fermer en cliquant sur l'overlay
             menuOverlay.addEventListener('click', function(e) {
                 if(e.target === menuOverlay) {
-                    burgerBtn.classList.remove('open');
-                    menuOverlay.classList.remove('open');
+                    closeMenuFunction();
+                }
+            });
+            
+            // Fermer avec Escape
+            document.addEventListener('keydown', function(e) {
+                if(e.key === 'Escape' && menuOverlay.classList.contains('open')) {
+                    closeMenuFunction();
                 }
             });
         </script>
