@@ -3,4 +3,87 @@
 {% block title %}Mon Espace - CDJ Villereau{% endblock %}
 
 {% block body %}
+<div class="rencontres-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="text-center mb-5">
+                    <h1 class="display-4 fw-bold text-primary mb-3 rencontres-title">Espace Licencié</h1>
+                    <div class="decorative-line mx-auto mb-4"></div>
+                </div>
+                
+                <div class="rencontres-header d-flex justify-content-center align-items-center mb-5">
+                    <div class="header-card p-4">
+                        <h2 class="mb-3">
+                            <i class="fas fa-calendar-alt me-3 calendar-icon"></i>Prochaines Rencontres
+                        </h2>
+                        <div class="decorative-dots">
+                            <span class="decorative-dot blue"></span>
+                            <span class="decorative-dot purple"></span>
+                            <span class="decorative-dot violet"></span>
+                        </div>
+                    </div>
+                </div>
+            
+            {% if rencontres is empty %}
+                <div class="no-rencontres text-center py-5">
+                    <div class="empty-state-card mx-auto p-3">
+                        <i class="fas fa-calendar-times text-muted mb-3 empty-state-icon"></i>
+                        <h4 class="text-muted mb-2">Aucune rencontre</h4>
+                        <p class="text-muted mb-0">Aucune rencontre programmée pour le moment.</p>
+                    </div>
+                </div>
+            {% else %}
+                <div class="rencontres-grid">
+                    <!-- Éléments décoratifs -->
+                    <div class="decorative-element top-left"></div>
+                    <div class="decorative-element bottom-right"></div>
+                    {% for rencontre in rencontres %}
+                    <div class="rencontre-card-container">
+                        <div class="card shadow-lg border-0 rencontre-card">
+                            <div class="card-body p-3 text-center rencontre-card-body">
+                                <div class="mb-2 rencontre-content">
+                                    {% if rencontre.equipe %}
+                                        <h4 class="text-primary mb-2 fw-bold rencontre-equipe">{{ rencontre.equipe }}</h4>
+                                    {% endif %}
+                                    <h6 class="text-dark mb-2 fw-bold rencontre-adversaire">
+                                        <i class="fas fa-shield-alt me-1 text-danger"></i>{{ rencontre.adversaire }}
+                                    </h6>
+                                    <h6 class="text-dark mb-1 rencontre-date">
+                                        {% set jour = rencontre.date|date('N') %}
+                                        {% set joursFr = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'] %}
+                                        {% set mois = rencontre.date|date('n') %}
+                                        {% set moisFr = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'] %}
+                                        {{ joursFr[jour - 1] }} {{ rencontre.date|date('j') }} {{ moisFr[mois - 1] }}
+                                    </h6>
+                                    <p class="mb-1 fw-bold rencontre-heure">{{ rencontre.heure }}</p>
+                                    <p class="mb-1 text-muted rencontre-lieu">
+                                        {% if rencontre.lieu == 'Domicile' %}
+                                            <i class="fas fa-home me-1"></i>{{ rencontre.lieu }}
+                                        {% else %}
+                                            <i class="fas fa-plane me-1"></i>{{ rencontre.lieu }}
+                                        {% endif %}
+                                    </p>
+                                </div>
+                                
+                                {% if rencontre.joueurs|length > 0 %}
+                                    <div class="rencontre-joueurs">
+                                        <small class="text-muted rencontre-joueurs-count">{{ rencontre.joueurs|length }} joueur(s)</small>
+                                        <div class="rencontre-joueurs-list">
+                                            {% for joueur in rencontre.joueurs %}
+                                                <span class="badge bg-secondary me-1 mb-1 rencontre-joueur-badge">{{ joueur.firstName }} {{ joueur.lastName|slice(0, 1) }}.</span>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+</div>
 {% endblock %} 

@@ -1,10 +1,10 @@
 {% extends 'admin/base_admin.html.twig' %}
 
-{% block title %}Nouvelle Rencontre - Admin{% endblock %}
+{% block title %}Modifier Rencontre - Admin{% endblock %}
 
 {% block body %}
 <div class="admin-header">
-    <h1>Nouvelle Rencontre</h1>
+    <h1>Modifier la Rencontre</h1>
 </div>
 <div class="admin-content">
     {{ form_start(form) }}
@@ -32,8 +32,12 @@
                 </div>
             </div>
         </div>
-        <button type="submit" class="btn btn-success">Créer</button>
-        <a href="{{ path('admin_rencontre_index') }}" class="btn btn-secondary">Annuler</a>
+        <button type="submit" class="btn btn-success">
+            <i class="fas fa-save"></i> Modifier
+        </button>
+        <a href="{{ path('admin_rencontre_index') }}" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Annuler
+        </a>
         {{ form_rest(form) }}
     {{ form_end(form) }}
 </div>

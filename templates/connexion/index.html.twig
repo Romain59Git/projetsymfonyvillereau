@@ -1,54 +1,38 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Espace Licencié - CDJ Villereau{% endblock %}
+{% block title %}Connexion - CDJ Villereau{% endblock %}
 
 {% block body %}
-<div class="login-container">
-    <div class="login-card">
-        <h1>Espace Licencié</h1>
-
+<div class="connexion-container">
+    <div class="connexion-card">
+        <h1 class="connexion-title">Espace Licencié</h1>
+        
         {% if error %}
-            <div class="alert-error">
+            <div class="alert alert-danger">
                 {{ error.messageKey|trans(error.messageData, 'security') }}
             </div>
         {% endif %}
 
-        <form method="post" class="login-form">
+        <form method="post">
             {% if csrf_token('authenticate') is defined %}
                 <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
             {% endif %}
 
             <div class="form-group">
                 <label for="email">
-                    <i class="fas fa-envelope"></i>
-                    Email
+                    <i class="fas fa-envelope"></i> Email
                 </label>
-                <input 
-                    type="email" 
-                    id="email" 
-                    name="_username" 
-                    value="{{ last_username }}" 
-                    required 
-                    autofocus
-                    placeholder="Votre adresse email"
-                >
+                <input type="email" id="email" name="_username" value="{{ last_username }}" required autofocus placeholder="Votre adresse email">
             </div>
 
             <div class="form-group">
                 <label for="password">
-                    <i class="fas fa-lock"></i>
-                    Mot de passe
+                    <i class="fas fa-lock"></i> Mot de passe
                 </label>
-                <input 
-                    type="password" 
-                    id="password" 
-                    name="_password" 
-                    required
-                    placeholder="Votre mot de passe"
-                >
+                <input type="password" id="password" name="_password" required placeholder="Votre mot de passe">
             </div>
 
-            <div class="form-group remember-me">
+            <div class="form-group">
                 <label class="checkbox-container">
                     <input type="checkbox" id="remember_me" name="_remember_me">
                     <span class="checkmark"></span>
@@ -56,23 +40,14 @@
                 </label>
             </div>
 
-            <button type="submit" class="login-button">
-                <i class="fas fa-sign-in-alt"></i>
-                Se connecter
+            <button type="submit" class="btn-login">
+                <i class="fas fa-sign-in-alt"></i> Se connecter
             </button>
-        </form>
 
-        <div class="forgot-password">
-            <a href="{{ path('app_forgot_password') }}">Mot de passe oublié ?</a>
-        </div>
+            <a href="{{ path('app_forgot_password') }}" class="forgot-password">
+                Mot de passe oublié ?
+            </a>
+        </form>
     </div>
 </div>
-
-<style>
-    /* Styles spécifiques pour la page de connexion */
-    .login-card h1 {
-        margin-bottom: 2rem;
-        font-size: 2rem;
-    }
-</style>
 {% endblock %}

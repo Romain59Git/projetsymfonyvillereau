@@ -1,34 +1,111 @@
 {% extends 'admin/base_admin.html.twig' %}
 
-{% block title %}Gestion des Rencontres - Admin{% endblock %}
+{% block title %}Gestion des rencontres{% endblock %}
 
 {% block body %}
-<div class="admin-header">
-    <h1>Gestion des Rencontres</h1>
-    <a href="{{ path('admin_rencontre_new') }}" class="btn btn-primary">Nouvelle rencontre</a>
-</div>
-<div class="admin-content">
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Date</th>
-                <th>Adversaire</th>
-                <th>Lieu</th>
-                <th>Heure</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for rencontre in rencontres %}
-            <tr>
-                <td>{{ rencontre.date|date('d/m/Y') }}</td>
-                <td>{{ rencontre.adversaire }}</td>
-                <td>{{ rencontre.lieu }}</td>
-                <td>{{ rencontre.heure }}</td>
-            </tr>
-        {% else %}
-            <tr><td colspan="4" class="text-center text-muted">Aucune rencontre enregistrée.</td></tr>
-        {% endfor %}
-        </tbody>
-    </table>
-</div>
+    <div class="admin-header d-flex justify-content-between align-items-center">
+        <h1 class="mb-0">Gestion des rencontres</h1>
+        <a href="{{ path('admin_rencontre_new') }}" class="btn btn-primary">
+            <i class="fas fa-plus"></i> Nouvelle rencontre
+        </a>
+    </div>
+
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endfor %}
+
+    {% for message in app.flashes('error') %}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endfor %}
+
+    <div class="card">
+        <div class="card-header">
+            <h5 class="card-title mb-0">Liste des rencontres ({{ rencontres|length }})</h5>
+        </div>
+        <div class="card-body">
+            {% if rencontres|length > 0 %}
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Équipe</th>
+                                <th>Adversaire</th>
+                                <th>Date</th>
+                                <th>Heure</th>
+                                <th>Lieu</th>
+                                <th>Joueurs</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for rencontre in rencontres %}
+                                <tr>
+                                    <td>{{ rencontre.id }}</td>
+                                    <td>
+                                        {% if rencontre.equipe %}
+                                            <span class="badge bg-primary">{{ rencontre.equipe }}</span>
+                                        {% else %}
+                                            <em class="text-muted">Non définie</em>
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ rencontre.adversaire }}</td>
+                                    <td>{{ rencontre.date|date('d/m/Y') }}</td>
+                                    <td>{{ rencontre.heure }}</td>
+                                    <td>
+                                        {% if rencontre.lieu == 'Domicile' %}
+                                            <span class="badge bg-success">
+                                                <i class="fas fa-home"></i> {{ rencontre.lieu }}
+                                            </span>
+                                        {% else %}
+                                            <span class="badge bg-info">
+                                                <i class="fas fa-plane"></i> {{ rencontre.lieu }}
+                                            </span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if rencontre.joueurs|length > 0 %}
+                                            <span class="badge bg-secondary">{{ rencontre.joueurs|length }} joueur(s)</span>
+                                        {% else %}
+                                            <em class="text-muted">Aucun</em>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <div class="d-flex admin-btn-group">
+                                            <a href="{{ path('admin_rencontre_edit', {'id': rencontre.id}) }}" 
+                                               class="btn btn-warning admin-btn-sm">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <form method="post" action="{{ path('admin_rencontre_delete', {'id': rencontre.id}) }}" 
+                                                  onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette rencontre ?')" 
+                                                  class="d-inline">
+                                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ rencontre.id) }}">
+                                                <button type="submit" class="btn btn-danger admin-btn-sm">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div class="text-center py-4">
+                    <i class="fas fa-calendar-times fa-3x text-muted mb-3"></i>
+                    <p class="text-muted">Aucune rencontre programmée.</p>
+                    <a href="{{ path('admin_rencontre_new') }}" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Programmer la première rencontre
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
 {% endblock %} 

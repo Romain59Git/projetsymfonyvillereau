@@ -3,36 +3,42 @@
 {% block title %}Accueil - CDJ Villereau{% endblock %}
 
 {% block body %}
+<div class="accueil-wrapper">
+    <div class="accueil-header">
+        <h1 class="main-title">Bienvenue au CDJ Villereau</h1>
+        <h2 class="subtitle-simple">Plus qu'un club, une famille !</h2>
+    </div>
 
-<div class="wrapper">
-    <h1 class="main-title">Bienvenue au CDJ Villereau</h1>
-    <h2 class="subtitle-simple">Plus qu'un club, une famille !</h2>
+    <div class="accueil-intro">
+        <p>Au cœur du Nord, notre club réunit 58 licenciés : 27 jeunes et 31 adultes, 
+        tous animés par la même passion du tennis de table. Que vous soyez débutant ou joueur confirmé, 
+        vous trouverez chez nous un encadrement de qualité et une ambiance chaleureuse où chacun peut progresser… 
+        tout en s'amusant !</p>
+    </div>
 
-    <p class="intro-text">Au cœur du Nord, notre club réunit 58 licenciés : 27 jeunes et 31 adultes, 
-    tous animés par la même passion du tennis de table. Que vous soyez débutant ou joueur confirmé, 
-    vous trouverez chez nous un encadrement de qualité et une ambiance chaleureuse où chacun peut progresser… 
-    tout en s'amusant !</p>
-
-    <div class="cards-container">
-        <div class="card-custom">
-            <h2>La vie du club</h2>
-            <ul>
-                <li><b>Repas conviviaux</b> (BBQ, raclette, buffet...) pour se retrouver hors des terrains</li>
-                <li><b>Tournois amicaux</b> et journées festives pour entretenir l'esprit d'équipe</li>
-                <li><b>Ambiance familiale</b>, où les échanges de conseils sont aussi nombreux que les rires</li>
-            </ul>
-            <em>"Plus qu'un club, une famille" n'est pas qu'un slogan : c'est notre engagement au quotidien.</em>
+    <div class="accueil-content">
+        <div class="cards-container">
+            <div class="card-custom">
+                <h2>La vie du club</h2>
+                <ul>
+                    <li><b>Repas conviviaux</b> (BBQ, raclette, buffet...) pour se retrouver hors des terrains</li>
+                    <li><b>Tournois amicaux</b> et journées festives pour entretenir l'esprit d'équipe</li>
+                    <li><b>Ambiance familiale</b>, où les échanges de conseils sont aussi nombreux que les rires</li>
+                </ul>
+                <em>"Plus qu'un club, une famille" n'est pas qu'un slogan : c'est notre engagement au quotidien.</em>
+            </div>
         </div>
     </div>
     
-    <p class="final-paragraph">Prêt à taper la balle avec nous ? 
-    Venez nous rencontrer aux horaires d'entraînement, 
-    ou <a href="/contact">contactez-nous</a> pour toute question !</p>
+    <div class="accueil-final">
+        <p>Prêt à taper la balle avec nous ? 
+        Venez nous rencontrer aux horaires d'entraînement, 
+        ou <a href="/contact">contactez-nous</a> pour toute question !</p>
+    </div>
 
     <div class="images-container">
         <img src="{{ asset('image/photosalleping.jpg') }}" alt="Notre salle d'entraînement" class="salle-image">
         <img src="{{ asset('image/salletennis.jpg') }}" alt="Salle de tennis de table" class="salle-image">
     </div>
-
 </div>
 {% endblock %}

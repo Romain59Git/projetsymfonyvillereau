@@ -1,10 +1,10 @@
 {% extends 'admin/base_admin.html.twig' %}
 
-{% block title %}Nouveau licencié{% endblock %}
+{% block title %}{{ title|default('Nouveau licencié') }}{% endblock %}
 
 {% block body %}
     <div class="admin-header d-flex justify-content-between align-items-center mb-4">
-        <h1 class="mb-0">Nouveau licencié</h1>
+        <h1 class="mb-0">{{ title|default('Nouveau licencié') }}</h1>
         <a href="{{ path('admin_licencies') }}" class="btn btn-secondary">
             <i class="fas fa-arrow-left"></i> Retour à la liste
         </a>
@@ -43,12 +43,18 @@
                         </div>
 
                         <div class="mb-3">
-                            {{ form_row(form.plainPassword) }}
+                            {{ form_row(form.birthDate) }}
                         </div>
+
+                        {{ form_rest(form) }}
                         
                         <div class="d-grid gap-2">
                             <button class="btn btn-primary" type="submit">
-                                <i class="fas fa-user-plus"></i> Créer le licencié
+                                {% if licencie is defined and licencie.id %}
+                                    <i class="fas fa-save"></i> Modifier le licencié
+                                {% else %}
+                                    <i class="fas fa-user-plus"></i> Créer le licencié
+                                {% endif %}
                             </button>
                         </div>
                     {{ form_end(form) }}

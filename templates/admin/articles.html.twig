@@ -39,9 +39,9 @@
                                     <td>{{ article.createdAt|date('d/m/Y H:i') }}</td>
                                     <td>
                                         {% if article.image %}
-                                            <img src="{{ asset('uploads/images/' ~ article.image) }}" alt="Image de l'article" style="max-height: 50px;">
+                                            <span class="badge bg-success">Oui</span>
                                         {% else %}
-                                            <span class="text-muted">Aucune image</span>
+                                            <span class="badge bg-secondary">Non</span>
                                         {% endif %}
                                     </td>
                                     <td>
@@ -49,7 +49,7 @@
                                             <a href="{{ path('admin_article_edit', {'id': article.id}) }}" class="btn btn-warning btn-sm">
                                                 <i class="fas fa-edit"></i>
                                             </a>
-                                            <form method="post" action="{{ path('admin_article_delete', {'id': article.id}) }}" style="display: inline-block;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet article ?');">
+                                            <form method="post" action="{{ path('admin_article_delete', {'id': article.id}) }}" class="d-inline" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet article ?');">
                                                 <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ article.id) }}">
                                                 <button type="submit" class="btn btn-danger btn-sm">
                                                     <i class="fas fa-trash"></i>

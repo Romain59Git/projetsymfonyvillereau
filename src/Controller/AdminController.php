@@ -78,6 +78,30 @@ final class AdminController extends AbstractController
         ]);
     }
 
+    #[Route('/licencie/{id}/edit', name: 'admin_licencie_edit')]
+    public function editLicencie(Request $request, Licencie $licencie, EntityManagerInterface $em): Response
+    {
+        $form = $this->createForm(LicencieTypeForm::class, $licencie);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Mettre à jour l'email du User associé si nécessaire
+            if ($licencie->getUser()) {
+                $licencie->getUser()->setEmail($licencie->getEmail());
+            }
+            
+            $em->flush();
+            $this->addFlash('success', 'Le licencié a été modifié avec succès !');
+            return $this->redirectToRoute('admin_licencies');
+        }
+
+        return $this->render('admin/licencie_form.html.twig', [
+            'form' => $form->createView(),
+            'licencie' => $licencie,
+            'title' => 'Modifier le licencié'
+        ]);
+    }
+
     #[Route('/licencies', name: 'admin_licencies')]
     public function licencies(EntityManagerInterface $em): Response
     {

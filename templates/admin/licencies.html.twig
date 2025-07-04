@@ -6,7 +6,7 @@
     <div class="admin-header d-flex justify-content-between align-items-center">
         <h1 class="mb-0">Gestion des licenciés</h1>
         <a href="{{ path('admin_licencie_new') }}" class="btn btn-primary">
-            <i class="fas fa-plus-circle"></i> Nouveau licencié
+            <i class="fas fa-plus"></i> Nouveau licencié
         </a>
     </div>
 
@@ -17,17 +17,26 @@
         </div>
     {% endfor %}
 
+    {% for message in app.flashes('error') %}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endfor %}
+
     <div class="card">
+        <div class="card-header">
+            <h5 class="card-title mb-0">Liste des licenciés ({{ licencies|length }})</h5>
+        </div>
         <div class="card-body">
-            {% if licencies is empty %}
-                <p class="text-muted mb-0">Aucun licencié trouvé</p>
-            {% else %}
+            {% if licencies|length > 0 %}
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th>Nom</th>
+                                <th>ID</th>
                                 <th>Prénom</th>
+                                <th>Nom</th>
                                 <th>Email</th>
                                 <th>Date de naissance</th>
                                 <th>Actions</th>
@@ -36,15 +45,28 @@
                         <tbody>
                             {% for licencie in licencies %}
                                 <tr>
-                                    <td>{{ licencie.lastName }}</td>
+                                    <td>{{ licencie.id }}</td>
                                     <td>{{ licencie.firstName }}</td>
+                                    <td>{{ licencie.lastName }}</td>
                                     <td>{{ licencie.email }}</td>
-                                    <td>{{ licencie.birthDate|date('d/m/Y') }}</td>
                                     <td>
-                                        <div class="btn-group" role="group">
-                                            <form method="post" action="{{ path('admin_licencie_delete', {'id': licencie.id}) }}" style="display: inline-block;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce licencié ?');">
+                                        {% if licencie.birthDate %}
+                                            {{ licencie.birthDate|date('d/m/Y') }}
+                                        {% else %}
+                                            <em class="text-muted">Non renseignée</em>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <div class="d-flex admin-btn-group">
+                                            <a href="{{ path('admin_licencie_edit', {'id': licencie.id}) }}" 
+                                               class="btn btn-warning admin-btn-sm">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <form method="post" action="{{ path('admin_licencie_delete', {'id': licencie.id}) }}" 
+                                                  onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce licencié ?')" 
+                                                  class="d-inline">
                                                 <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ licencie.id) }}">
-                                                <button type="submit" class="btn btn-danger btn-sm">
+                                                <button type="submit" class="btn btn-danger admin-btn-sm">
                                                     <i class="fas fa-trash"></i>
                                                 </button>
                                             </form>
@@ -54,6 +76,14 @@
                             {% endfor %}
                         </tbody>
                     </table>
+                </div>
+            {% else %}
+                <div class="text-center py-4">
+                    <i class="fas fa-users fa-3x text-muted mb-3"></i>
+                    <p class="text-muted">Aucun licencié enregistré.</p>
+                    <a href="{{ path('admin_licencie_new') }}" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Ajouter le premier licencié
+                    </a>
                 </div>
             {% endif %}
         </div>

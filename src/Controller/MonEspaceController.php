@@ -1,24 +1,24 @@
 <?php
 namespace App\Controller;
 
+use App\Entity\Rencontre;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Bundle\SecurityBundle\Attribute\IsGranted;
 
-/**
- * @Route("/mon-espace", name="mon_espace")
- * @IsGranted("ROLE_LICENCIE")
- */
+#[Route('/mon-espace')]
+#[IsGranted('ROLE_LICENCIE')]
 class MonEspaceController extends AbstractController
 {
-    /**
-     * @Route("/mon-espace", name="mon_espace")
-     * @IsGranted("ROLE_LICENCIE")
-     */
-    public function index(): Response
+    #[Route('/', name: 'mon_espace')]
+    public function index(EntityManagerInterface $em): Response
     {
-        // Les données seront injectées plus tard
-        return $this->render('mon_espace/index.html.twig');
+        $rencontres = $em->getRepository(Rencontre::class)->findBy([], ['date' => 'ASC']);
+        
+        return $this->render('mon_espace/index.html.twig', [
+            'rencontres' => $rencontres
+        ]);
     }
 } 
