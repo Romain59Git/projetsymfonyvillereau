@@ -19,7 +19,3 @@
 /assets/vendor/
 ###< symfony/asset-mapper ###
 /.env.prod
-# Docker files
-README-DOCKER.md
-Dockerfile.dev
-docker-compose.dev.yaml

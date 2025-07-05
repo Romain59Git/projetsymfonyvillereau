@@ -289,7 +289,84 @@
                 display: none;  /* Caché par défaut */
             }
 
-            @media (max-width: 800px) {
+            /* Styles de base pour le menu overlay et drawer */
+            .menu-overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0,0,0,0.5);
+                z-index: 9999;
+            }
+
+            .menu-overlay.open {
+                display: block;
+            }
+
+            .menu-drawer {
+                position: fixed;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                width: 280px;
+                background: var(--white);
+                padding: 2rem;
+                transform: translateX(100%);
+                transition: var(--transition);
+                z-index: 10000;
+                box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+            }
+
+            .menu-overlay.open .menu-drawer {
+                transform: translateX(0);
+            }
+
+            .menu-drawer ul {
+                list-style: none;
+                padding: 2rem 0 0 0;
+                margin: 0;
+            }
+
+            .menu-drawer li {
+                margin: 0;
+                border-bottom: 1px solid #f0f0f0;
+            }
+
+            .menu-drawer a {
+                color: var(--text-color);
+                text-decoration: none;
+                font-size: 1.1rem;
+                font-weight: 500;
+                transition: var(--transition);
+                display: block;
+                padding: 1rem 0;
+            }
+
+            .menu-drawer a:hover {
+                color: var(--secondary-color);
+            }
+
+            .close-menu {
+                position: absolute;
+                top: 1rem;
+                right: 1rem;
+                background: none;
+                border: none;
+                font-size: 1.5rem;
+                color: var(--text-color);
+                cursor: pointer;
+                padding: 0.5rem;
+                border-radius: 50%;
+                transition: var(--transition);
+            }
+
+            .close-menu:hover {
+                background-color: var(--light-gray);
+            }
+
+            @media (max-width: 1200px) {
                 .navbar-links, .auth-btn, .logout-btn {
                     display: none;
                 }
@@ -341,81 +418,9 @@
                 .burger-new.open span:after {
                     transform: rotate(-45deg) translate(5px, -5px);
                 }
-
-                .menu-overlay {
-                    display: none;
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    right: 0;
-                    bottom: 0;
-                    background: rgba(0,0,0,0.5);
-                    z-index: 9999;
-                }
-
-                .menu-overlay.open {
-                    display: block;
-                }
-
-                .menu-drawer {
-                    position: fixed;
-                    top: 0;
-                    right: 0;
-                    bottom: 0;
-                    width: 280px;
-                    background: var(--white);
-                    padding: 2rem;
-                    transform: translateX(100%);
-                    transition: var(--transition);
-                    z-index: 10000;
-                    box-shadow: -2px 0 10px rgba(0,0,0,0.1);
-                }
-
-                .menu-overlay.open .menu-drawer {
-                    transform: translateX(0);
-                }
-
-                .menu-drawer ul {
-                    list-style: none;
-                    padding: 0;
-                }
-
-                .menu-drawer li {
-                    margin: 1.5rem 0;
-                }
-
-                .menu-drawer a {
-                    color: var(--text-color);
-                    text-decoration: none;
-                    font-size: 1.1rem;
-                    font-weight: 500;
-                    transition: var(--transition);
-                }
-
-                .menu-drawer a:hover {
-                    color: var(--secondary-color);
-                }
-
-                .close-menu {
-                    position: absolute;
-                    top: 1rem;
-                    right: 1rem;
-                    background: none;
-                    border: none;
-                    font-size: 1.5rem;
-                    color: var(--text-color);
-                    cursor: pointer;
-                    padding: 0.5rem;
-                    border-radius: 50%;
-                    transition: var(--transition);
-                }
-
-                .close-menu:hover {
-                    background-color: var(--light-gray);
-                }
             }
 
-            @media (min-width: 801px) {
+            @media (min-width: 1201px) {
                 .burger-new, .menu-overlay {
                     display: none !important;
                 }
@@ -548,7 +553,7 @@
                 <a href="{{ path('app_contact') }}" class="nav-link">Contact</a>
                 <a href="{{ path('app_avis') }}" class="nav-link">Avis</a>
                 {% if is_granted('ROLE_LICENCIE') %}
-                    <a href="{{ path('mon_espace') }}" class="nav-link">Mon Espace</a>
+                    <a href="{{ path('mon_espace') }}" class="nav-link">Rencontres</a>
                 {% endif %}
             </div>
             {% if is_granted('ROLE_LICENCIE') %}
@@ -560,12 +565,22 @@
                     <i class="fas fa-user"></i> Espace Licencié
                 </a>
             {% endif %}
-            <button class="burger-new" id="burgerBtn" aria-label="Menu" type="button">
-                <span></span>
-            </button>
-            <div class="menu-overlay" id="menuOverlay">
+            <div data-controller="burger-menu">
+                <button class="burger-new" 
+                        data-burger-menu-target="button"
+                        data-action="click->burger-menu#toggle"
+                        aria-label="Menu" 
+                        type="button">
+                    <span></span>
+                </button>
+                <div class="menu-overlay" 
+                     data-burger-menu-target="overlay"
+                     data-action="click->burger-menu#closeOnOverlay">
                 <nav class="menu-drawer">
-                    <button class="close-menu" id="closeMenu" aria-label="Fermer le menu">
+                    <button class="close-menu" 
+                            data-burger-menu-target="closeButton"
+                            data-action="click->burger-menu#close"
+                            aria-label="Fermer le menu">
                         <i class="fas fa-times"></i>
                     </button>
                     <ul>
@@ -584,11 +599,12 @@
                         {% endif %}
                 </ul>
                 </nav>
+                </div>
             </div>
         </nav>
 
         <!-- Contenu principal -->
-        <div class="main-content" style="position:relative;z-index:1; flex:1 0 auto;">
+        <div class="main-content">
             {% block body %}{% endblock %}
         </div>
 
@@ -604,41 +620,7 @@
                     </nav>
             </div>
         </footer>
-        <script>
-            const burgerBtn = document.getElementById('burgerBtn');
-            const menuOverlay = document.getElementById('menuOverlay');
-            const closeMenu = document.getElementById('closeMenu');
-            
-            function toggleMenu() {
-                burgerBtn.classList.toggle('open');
-                menuOverlay.classList.toggle('open');
-            }
-            
-            function closeMenuFunction() {
-                burgerBtn.classList.remove('open');
-                menuOverlay.classList.remove('open');
-            }
-            
-            // Ouvrir/fermer avec le burger
-            burgerBtn.addEventListener('click', toggleMenu);
-            
-            // Fermer avec le bouton X
-            closeMenu.addEventListener('click', closeMenuFunction);
-            
-            // Fermer en cliquant sur l'overlay
-            menuOverlay.addEventListener('click', function(e) {
-                if(e.target === menuOverlay) {
-                    closeMenuFunction();
-                }
-            });
-            
-            // Fermer avec Escape
-            document.addEventListener('keydown', function(e) {
-                if(e.key === 'Escape' && menuOverlay.classList.contains('open')) {
-                    closeMenuFunction();
-                }
-            });
-        </script>
+
     </body>
 </html>
 

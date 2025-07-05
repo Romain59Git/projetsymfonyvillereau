@@ -1,0 +1,50 @@
+# ================================================================================
+# DOCKER COMPOSE DÉVELOPPEMENT - docker-compose.dev.yaml  
+# ================================================================================
+# Usage: docker-compose -f compose.yaml -f docker-compose.dev.yaml up
+# Alternative à compose.override.yaml pour le développement
+# ================================================================================
+
+services:
+  # Application en mode développement
+  app:
+    build:
+      target: development
+    environment:
+      - APP_ENV=dev
+      - APP_DEBUG=1
+    volumes:
+      # Code source monté pour hot reload
+      - .:/var/www/symfony
+      - /var/www/symfony/vendor  # Exclure vendor du mount
+    ports:
+      - "8080:80"  # Port exposé pour accès direct
+
+  # Base de données avec port exposé
+  database:
+    ports:
+      - "5432:5432"  # Port exposé pour accès direct (dev uniquement)
+
+  # Mailer de développement (MailPit)
+  mailer:
+    image: axllent/mailpit
+    container_name: villereau_mailer_dev
+    ports:
+      - "1025:1025"  # SMTP
+      - "8025:8025"  # Interface web
+    environment:
+      MP_SMTP_AUTH_ACCEPT_ANY: 1
+      MP_SMTP_AUTH_ALLOW_INSECURE: 1
+    networks:
+      - app-network
+
+  # PhpMyAdmin pour la base de données (optionnel)
+  adminer:
+    image: adminer:4
+    container_name: villereau_adminer_dev
+    ports:
+      - "8090:8080"
+    environment:
+      ADMINER_DEFAULT_SERVER: database
+    networks:
+      - app-network

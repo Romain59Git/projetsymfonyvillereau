@@ -1,0 +1,204 @@
+{% extends 'admin/base_admin.html.twig' %}
+
+{% block title %}Détail du contact - {{ contact.name }}{% endblock %}
+
+{% block body %}
+<div class="admin-content">
+    <div class="admin-header">
+        <div class="d-flex justify-content-between align-items-center">
+            <h1><i class="fas fa-envelope-open"></i> Message de contact</h1>
+            <a href="{{ path('admin_contacts') }}" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> Retour à la liste
+            </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-comment-dots"></i> Message
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="message-content">
+                        <p class="lead">{{ contact.message|nl2br }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-user"></i> Informations de contact
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="contact-info">
+                        <div class="info-item">
+                            <strong><i class="fas fa-user"></i> Nom :</strong>
+                            <p>{{ contact.name }}</p>
+                        </div>
+                        
+                        <div class="info-item">
+                            <strong><i class="fas fa-envelope"></i> Email :</strong>
+                            <p>
+                                <a href="mailto:{{ contact.email }}" class="text-decoration-none">
+                                    {{ contact.email }}
+                                </a>
+                            </p>
+                        </div>
+                        
+                        {% if contact.phone %}
+                        <div class="info-item">
+                            <strong><i class="fas fa-phone"></i> Téléphone :</strong>
+                            <p>
+                                <a href="tel:{{ contact.phone }}" class="text-decoration-none">
+                                    {{ contact.phone }}
+                                </a>
+                            </p>
+                        </div>
+                        {% endif %}
+                        
+                        <div class="info-item">
+                            <strong><i class="fas fa-tag"></i> Sujet :</strong>
+                            <p>
+                                <span class="badge bg-info">{{ contact.subject }}</span>
+                            </p>
+                        </div>
+                        
+                        <div class="info-item">
+                            <strong><i class="fas fa-calendar"></i> Date :</strong>
+                            <p>{{ contact.createdAt|date('d/m/Y à H:i') }}</p>
+                        </div>
+                        
+                        <div class="info-item">
+                            <strong><i class="fas fa-eye"></i> Statut :</strong>
+                            <p>
+                                {% if contact.isRead %}
+                                    <span class="badge bg-success">
+                                        <i class="fas fa-check"></i> Lu
+                                    </span>
+                                {% else %}
+                                    <span class="badge bg-warning">
+                                        <i class="fas fa-envelope"></i> Non lu
+                                    </span>
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mt-3">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-cogs"></i> Actions
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="d-grid gap-2">
+                        <a href="mailto:{{ contact.email }}?subject=Re: {{ contact.subject }}" 
+                           class="btn btn-success">
+                            <i class="fas fa-reply"></i> Répondre par email
+                        </a>
+                        
+                        <form method="post" 
+                              action="{{ path('admin_contact_delete', {'id': contact.id}) }}" 
+                              onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce message ?')">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ contact.id) }}">
+                            <button type="submit" class="btn btn-danger w-100">
+                                <i class="fas fa-trash"></i> Supprimer
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.admin-header {
+    margin-bottom: 2rem;
+}
+
+.admin-header h1 {
+    color: #2c3e50;
+    margin-bottom: 0;
+}
+
+.card-header {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.message-content {
+    background-color: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border-left: 4px solid #3498db;
+}
+
+.message-content p {
+    margin-bottom: 0;
+    line-height: 1.6;
+}
+
+.contact-info .info-item {
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.contact-info .info-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.contact-info .info-item strong {
+    color: #495057;
+    display: block;
+    margin-bottom: 0.25rem;
+}
+
+.contact-info .info-item p {
+    margin-bottom: 0;
+    color: #6c757d;
+}
+
+.contact-info .info-item a {
+    color: #3498db;
+}
+
+.contact-info .info-item a:hover {
+    color: #2980b9;
+}
+
+.badge {
+    font-size: 0.75rem;
+}
+
+.btn {
+    border-radius: 6px;
+}
+
+.btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+</style>
+{% endblock %} 

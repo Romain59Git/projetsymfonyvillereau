@@ -8,7 +8,7 @@
         <h1 class="connexion-title">Espace Licencié</h1>
         
         {% if error %}
-            <div class="alert alert-danger">
+            <div class="util-alert util-alert-danger">
                 {{ error.messageKey|trans(error.messageData, 'security') }}
             </div>
         {% endif %}

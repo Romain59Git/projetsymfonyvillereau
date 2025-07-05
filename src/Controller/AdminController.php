@@ -9,6 +9,7 @@ use App\Entity\Licencie;
 use App\Entity\User;
 use App\Entity\Article;
 use App\Entity\Avis;
+use App\Entity\Contact;
 use App\Form\LicencieTypeForm;
 use App\Form\ArticleTypeForm;
 use Doctrine\ORM\EntityManagerInterface;
@@ -31,8 +32,11 @@ final class AdminController extends AbstractController
             'licencies' => $em->getRepository(Licencie::class)->count([]),
             'avis' => $em->getRepository(Avis::class)->count([]),
             'users' => $em->getRepository(User::class)->count([]),
+            'contacts' => $em->getRepository(Contact::class)->count([]),
+            'unread_contacts' => $em->getRepository(Contact::class)->countUnread(),
             'recent_avis' => $em->getRepository(Avis::class)->findBy([], ['createdAt' => 'DESC'], 5),
-            'recent_licencies' => $em->getRepository(Licencie::class)->findBy([], ['id' => 'DESC'], 5)
+            'recent_licencies' => $em->getRepository(Licencie::class)->findBy([], ['id' => 'DESC'], 5),
+            'recent_contacts' => $em->getRepository(Contact::class)->findBy([], ['createdAt' => 'DESC'], 5)
         ];
 
         return $this->render('admin/index.html.twig', [
@@ -265,6 +269,39 @@ final class AdminController extends AbstractController
         }
 
         return $this->redirectToRoute('admin_avis');
+    }
+
+    #[Route('/contacts', name: 'admin_contacts')]
+    public function contacts(EntityManagerInterface $em): Response
+    {
+        $contacts = $em->getRepository(Contact::class)->findAllOrderedByDate();
+        
+        return $this->render('admin/contacts.html.twig', [
+            'contacts' => $contacts
+        ]);
+    }
+
+    #[Route('/contact/{id}/read', name: 'admin_contact_read')]
+    public function readContact(Contact $contact, EntityManagerInterface $em): Response
+    {
+        $contact->setIsRead(true);
+        $em->flush();
+        
+        return $this->render('admin/contact_details.html.twig', [
+            'contact' => $contact
+        ]);
+    }
+
+    #[Route('/contact/{id}/delete', name: 'admin_contact_delete', methods: ['POST'])]
+    public function deleteContact(Request $request, Contact $contact, EntityManagerInterface $em): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$contact->getId(), $request->request->get('_token'))) {
+            $em->remove($contact);
+            $em->flush();
+            $this->addFlash('success', 'Message de contact supprimé avec succès !');
+        }
+
+        return $this->redirectToRoute('admin_contacts');
     }
 
     #[Route('/parametres', name: 'admin_parametres')]

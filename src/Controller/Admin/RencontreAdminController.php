@@ -8,10 +8,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Bundle\SecurityBundle\Attribute\IsGranted as AttributeIsGranted;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/admin/rencontres')]
-#[AttributeIsGranted('ROLE_ADMIN')]
+#[IsGranted('ROLE_ADMIN')]
 class RencontreAdminController extends AbstractController
 {
     #[Route('/', name: 'admin_rencontre_index')]
