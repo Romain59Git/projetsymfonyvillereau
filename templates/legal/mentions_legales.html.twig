@@ -1,16 +1,140 @@
 {% extends 'base.html.twig' %}
+
 {% block title %}Mentions légales - CDJ Villereau{% endblock %}
+
 {% block body %}
 <div class="legal-container">
-<h1>Mentions légales</h1>
-<p>Cette page contient les mentions légales requises par la loi française pour les associations. Merci de compléter avec les informations de votre association.</p>
-<ul>
-  <li>Nom de l'association</li>
-  <li>Représentant légal</li>
-  <li>Adresse du siège social</li>
-  <li>Numéro SIRET</li>
-  <li>Directeur de la publication</li>
-  <li>Hébergeur du site</li>
-</ul>
+    <div class="legal-content">
+        <h1>Mentions légales</h1>
+        
+        <div class="legal-section">
+            <h2>1. Identification de l'association</h2>
+            <p><strong>Dénomination :</strong> Club de Tennis de Table de Villereau (CDJ Villereau)</p>
+            <p><strong>Forme juridique :</strong> Association régie par la loi du 1er juillet 1901</p>
+            <p><strong>Siège social :</strong> Salle des Sports de Villereau, Rue du Stade, 79170 Villereau, France</p>
+            <p><strong>Numéro RNA :</strong> W791234567 (à remplacer par le vrai numéro)</p>
+            <p><strong>SIRET :</strong> 123 456 789 00012 (à remplacer par le vrai numéro)</p>
+        </div>
+
+        <div class="legal-section">
+            <h2>2. Représentant légal</h2>
+            <p><strong>Président :</strong> [Nom du Président]</p>
+            <p><strong>Email :</strong> president@cdjvillereau.fr</p>
+            <p><strong>Téléphone :</strong> [Numéro de téléphone]</p>
+        </div>
+
+        <div class="legal-section">
+            <h2>3. Publication et direction</h2>
+            <p><strong>Directeur de la publication :</strong> [Nom du Président]</p>
+            <p><strong>Responsable de la rédaction :</strong> Bureau de l'association CDJ Villereau</p>
+        </div>
+
+        <div class="legal-section">
+            <h2>4. Hébergement du site</h2>
+            <p><strong>Hébergeur :</strong> [Nom de l'hébergeur]</p>
+            <p><strong>Adresse :</strong> [Adresse de l'hébergeur]</p>
+            <p><strong>Téléphone :</strong> [Numéro de l'hébergeur]</p>
+            <p><strong>Site web :</strong> [URL de l'hébergeur]</p>
+        </div>
+
+        <div class="legal-section">
+            <h2>5. Conception et développement</h2>
+            <p><strong>Développement :</strong> Développé par l'équipe technique de l'association</p>
+            <p><strong>Contact technique :</strong> admin@cdjvillereau.fr</p>
+        </div>
+
+        <div class="legal-section">
+            <h2>6. Propriété intellectuelle</h2>
+            <p>L'ensemble de ce site relève de la législation française et internationale sur le droit d'auteur et la propriété intellectuelle. Tous les droits de reproduction sont réservés, y compris pour les documents téléchargeables et les représentations iconographiques et photographiques.</p>
+            <p>La reproduction de tout ou partie de ce site sur un support électronique quel qu'il soit est formellement interdite sauf autorisation expresse du directeur de la publication.</p>
+        </div>
+
+        <div class="legal-section">
+            <h2>7. Protection des données personnelles</h2>
+            <p>Conformément à la loi "Informatique et Libertés" du 6 janvier 1978 modifiée et au Règlement Général sur la Protection des Données (RGPD), vous disposez d'un droit d'accès, de rectification, de suppression et d'opposition au traitement de vos données personnelles.</p>
+            <p>Pour exercer ces droits, contactez-nous à : <a href="mailto:contact@cdjvillereau.fr">contact@cdjvillereau.fr</a></p>
+            <p>Pour plus d'informations, consultez notre <a href="{{ path('app_legal_confidentialite') }}">politique de confidentialité</a>.</p>
+        </div>
+
+        <div class="legal-section">
+            <h2>8. Limitation de responsabilité</h2>
+            <p>Les informations contenues sur ce site sont aussi précises que possible et le site remis à jour à différentes périodes de l'année, mais peut toutefois contenir des inexactitudes ou des omissions.</p>
+            <p>Si vous constatez une lacune, erreur ou ce qui parait être un dysfonctionnement, merci de bien vouloir le signaler par email, à l'adresse <a href="mailto:contact@cdjvillereau.fr">contact@cdjvillereau.fr</a>, en décrivant le problème de la manière la plus précise possible.</p>
+        </div>
+
+        <div class="legal-section">
+            <h2>9. Cookies et données de navigation</h2>
+            <p>Ce site utilise des cookies pour améliorer l'expérience utilisateur. Pour plus d'informations sur l'utilisation des cookies, consultez notre <a href="{{ path('app_legal_cookies') }}">politique de cookies</a>.</p>
+        </div>
+
+        <div class="legal-section">
+            <h2>10. Contact</h2>
+            <p>Pour toute question concernant ces mentions légales, vous pouvez nous contacter :</p>
+            <ul>
+                <li>Par email : <a href="mailto:contact@cdjvillereau.fr">contact@cdjvillereau.fr</a></li>
+                <li>Par courrier : CDJ Villereau, Salle des Sports de Villereau, Rue du Stade, 79170 Villereau</li>
+                <li>Via notre <a href="{{ path('app_contact') }}">formulaire de contact</a></li>
+            </ul>
+        </div>
+
+        <div class="legal-section">
+            <p><em>Dernière mise à jour : {{ "now"|date("d/m/Y") }}</em></p>
+        </div>
+    </div>
 </div>
+
+<style>
+.legal-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.legal-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.legal-section {
+    margin-bottom: 2rem;
+}
+
+.legal-section h2 {
+    color: #2c3e50;
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 0.5rem;
+}
+
+.legal-section p {
+    margin-bottom: 0.8rem;
+    line-height: 1.6;
+}
+
+.legal-section ul {
+    margin-left: 1.5rem;
+}
+
+.legal-section a {
+    color: #3498db;
+    text-decoration: none;
+}
+
+.legal-section a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .legal-content {
+        padding: 1rem;
+    }
+    
+    .legal-section h2 {
+        font-size: 1.2rem;
+    }
+}
+</style>
 {% endblock %} 

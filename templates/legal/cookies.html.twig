@@ -1,13 +1,321 @@
 {% extends 'base.html.twig' %}
+
 {% block title %}Gestion des cookies - CDJ Villereau{% endblock %}
+
 {% block body %}
 <div class="legal-container">
-<h1>Gestion des cookies</h1>
-<p>Cette page explique l'utilisation des cookies sur ce site, conformément à la législation française et européenne. Merci de compléter avec votre politique de cookies.</p>
-<ul>
-  <li>Types de cookies utilisés</li>
-  <li>Finalité des cookies</li>
-  <li>Comment refuser ou supprimer les cookies</li>
-</ul>
+    <div class="legal-content">
+        <h1>Politique de gestion des cookies</h1>
+        
+        <div class="legal-section">
+            <p>Cette page vous informe sur notre politique en matière de cookies et vous explique comment nous les utilisons sur le site web du Club de Tennis de Table de Villereau (CDJ Villereau).</p>
+            <p>Conformément à la réglementation européenne et aux recommandations de la Commission Nationale de l'Informatique et des Libertés (CNIL), nous vous informons sur l'utilisation des cookies sur notre site.</p>
+        </div>
+
+        <div class="legal-section">
+            <h2>1. Qu'est-ce qu'un cookie ?</h2>
+            <p>Un cookie est un petit fichier texte déposé sur votre ordinateur, tablette ou smartphone lors de la consultation d'un site internet. Il permet au site de reconnaître votre appareil et de stocker certaines informations sur vos préférences ou actions passées.</p>
+            <p>Les cookies ne peuvent pas endommager votre appareil. Ils ne contiennent aucun virus et ne permettent pas d'identifier personnellement l'utilisateur.</p>
+        </div>
+
+        <div class="legal-section">
+            <h2>2. Cookies utilisés sur notre site</h2>
+            
+            <h3>2.1 Cookies strictement nécessaires</h3>
+            <p>Ces cookies sont indispensables au fonctionnement du site. Ils ne peuvent pas être désactivés dans nos systèmes. Ils sont généralement définis en réponse à des actions que vous effectuez et qui constituent une demande de services (connexion, remplissage de formulaires, etc.).</p>
+            
+            <div class="cookie-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nom du cookie</th>
+                            <th>Finalité</th>
+                            <th>Durée</th>
+                            <th>Type</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>PHPSESSID</td>
+                            <td>Identification de session utilisateur</td>
+                            <td>Session</td>
+                            <td>Nécessaire</td>
+                        </tr>
+                        <tr>
+                            <td>csrf_token</td>
+                            <td>Protection contre les attaques CSRF</td>
+                            <td>Session</td>
+                            <td>Nécessaire</td>
+                        </tr>
+                        <tr>
+                            <td>symfony_session</td>
+                            <td>Gestion de session Symfony</td>
+                            <td>Session</td>
+                            <td>Nécessaire</td>
+                        </tr>
+                        <tr>
+                            <td>remember_me</td>
+                            <td>Fonction "Se souvenir de moi" pour la connexion</td>
+                            <td>30 jours</td>
+                            <td>Fonctionnel</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>2.2 Cookies de fonctionnalité</h3>
+            <p>Ces cookies permettent au site de fournir une fonctionnalité et une personnalisation améliorées. Ils peuvent être définis par nous ou par des fournisseurs tiers dont nous avons ajouté les services à nos pages.</p>
+            
+            <h3>2.3 Cookies de performance et d'analyse</h3>
+            <p>Ces cookies nous permettent de compter les visites et les sources de trafic afin de mesurer et d'améliorer les performances de notre site. Ils nous aident à savoir quelles pages sont les plus et les moins populaires et à voir comment les visiteurs naviguent sur le site.</p>
+            <p><strong>Actuellement, aucun cookie de cette catégorie n'est utilisé sur notre site.</strong></p>
+
+            <h3>2.4 Cookies publicitaires et de ciblage</h3>
+            <p><strong>Nous n'utilisons aucun cookie publicitaire ou de ciblage sur notre site.</strong></p>
+        </div>
+
+        <div class="legal-section">
+            <h2>3. Cookies de tiers</h2>
+            <p>Notre site peut contenir des services fournis par des tiers (vidéos, cartes, boutons de réseaux sociaux, etc.) qui peuvent déposer leurs propres cookies. Ces services sont fournis par :</p>
+            <ul>
+                <li><strong>Google Maps :</strong> Affichage de cartes interactives (si activé)</li>
+                <li><strong>YouTube :</strong> Lecteur vidéo intégré (si présent)</li>
+                <li><strong>Réseaux sociaux :</strong> Boutons de partage (si présents)</li>
+            </ul>
+            <p>Ces cookies de tiers sont soumis aux politiques de confidentialité de ces services. Nous vous encourageons à consulter leurs politiques respectives.</p>
+        </div>
+
+        <div class="legal-section">
+            <h2>4. Gestion de vos préférences</h2>
+            
+            <h3>4.1 Consentement</h3>
+            <p>Conformément à la réglementation, nous demandons votre consentement avant de déposer des cookies non essentiels. Vous pouvez à tout moment modifier vos préférences.</p>
+
+            <h3>4.2 Paramétrage de votre navigateur</h3>
+            <p>Vous pouvez configurer votre navigateur pour accepter ou refuser les cookies :</p>
+            
+            <h4>Google Chrome</h4>
+            <ol>
+                <li>Cliquez sur le menu Chrome (⋮) puis sur "Paramètres"</li>
+                <li>Cliquez sur "Confidentialité et sécurité" puis "Cookies et autres données de site"</li>
+                <li>Choisissez vos préférences</li>
+            </ol>
+
+            <h4>Mozilla Firefox</h4>
+            <ol>
+                <li>Cliquez sur le menu (☰) puis sur "Paramètres"</li>
+                <li>Cliquez sur "Vie privée et sécurité"</li>
+                <li>Dans la section "Cookies et données de sites", choisissez vos préférences</li>
+            </ol>
+
+            <h4>Safari</h4>
+            <ol>
+                <li>Dans le menu Safari, cliquez sur "Préférences"</li>
+                <li>Cliquez sur l'onglet "Confidentialité"</li>
+                <li>Configurez vos préférences de cookies</li>
+            </ol>
+
+            <h4>Microsoft Edge</h4>
+            <ol>
+                <li>Cliquez sur le menu (⋯) puis sur "Paramètres"</li>
+                <li>Cliquez sur "Cookies et autorisations de site"</li>
+                <li>Configurez vos préférences</li>
+            </ol>
+        </div>
+
+        <div class="legal-section">
+            <h2>5. Suppression des cookies</h2>
+            <p>Vous pouvez également supprimer les cookies déjà stockés sur votre appareil :</p>
+            <ul>
+                <li><strong>Chrome :</strong> Paramètres > Confidentialité et sécurité > Effacer les données de navigation</li>
+                <li><strong>Firefox :</strong> Paramètres > Vie privée et sécurité > Cookies et données de sites > Effacer les données</li>
+                <li><strong>Safari :</strong> Préférences > Confidentialité > Gérer les données de sites web</li>
+                <li><strong>Edge :</strong> Paramètres > Confidentialité, recherche et services > Effacer les données de navigation</li>
+            </ul>
+        </div>
+
+        <div class="legal-section">
+            <h2>6. Conséquences du refus des cookies</h2>
+            <p>Le refus des cookies peut entraîner les conséquences suivantes :</p>
+            <ul>
+                <li><strong>Cookies nécessaires :</strong> Le refus peut rendre le site inutilisable (impossible de se connecter, de naviguer correctement)</li>
+                <li><strong>Cookies fonctionnels :</strong> Certaines fonctionnalités peuvent ne pas être disponibles (mémorisation des préférences, "se souvenir de moi")</li>
+                <li><strong>Cookies de performance :</strong> Nous ne pourrons pas améliorer l'expérience utilisateur basée sur l'analyse du comportement de navigation</li>
+            </ul>
+        </div>
+
+        <div class="legal-section">
+            <h2>7. Cookies et données personnelles</h2>
+            <p>Les informations collectées par les cookies sont traitées conformément à notre <a href="{{ path('app_legal_confidentialite') }}">politique de confidentialité</a>. Elles ne sont jamais communiquées à des tiers sans votre consentement explicite, sauf obligation légale.</p>
+        </div>
+
+        <div class="legal-section">
+            <h2>8. Durée de conservation</h2>
+            <p>Les cookies sont conservés pour les durées suivantes :</p>
+            <ul>
+                <li><strong>Cookies de session :</strong> Supprimés à la fermeture du navigateur</li>
+                <li><strong>Cookies persistants :</strong> Maximum 13 mois (sauf cookies de consentement : 13 mois maximum)</li>
+                <li><strong>Cookies de fonctionnalité :</strong> 30 jours maximum</li>
+            </ul>
+        </div>
+
+        <div class="legal-section">
+            <h2>9. Évolution de la politique des cookies</h2>
+            <p>Cette politique peut être amenée à évoluer. Nous vous informerons de toute modification importante par une notification sur le site ou par email si nous disposons de votre adresse électronique.</p>
+        </div>
+
+        <div class="legal-section">
+            <h2>10. Contact</h2>
+            <p>Pour toute question concernant notre politique de cookies :</p>
+            <ul>
+                <li><strong>Email :</strong> <a href="mailto:contact@cdjvillereau.fr">contact@cdjvillereau.fr</a></li>
+                <li><strong>Adresse :</strong> CDJ Villereau, Salle des Sports de Villereau, Rue du Stade, 79170 Villereau</li>
+                <li><strong>Formulaire :</strong> <a href="{{ path('app_contact') }}">Contactez-nous</a></li>
+            </ul>
+        </div>
+
+        <div class="legal-section">
+            <h2>11. Liens utiles</h2>
+            <ul>
+                <li><a href="https://www.cnil.fr/fr/cookies-et-autres-traceurs" target="_blank" rel="noopener">Guide CNIL sur les cookies</a></li>
+                <li><a href="https://www.youronlinechoices.com/fr/" target="_blank" rel="noopener">Plateforme de gestion des cookies publicitaires</a></li>
+                <li><a href="{{ path('app_legal_confidentialite') }}">Notre politique de confidentialité</a></li>
+                <li><a href="{{ path('app_legal_mentions_legales') }}">Nos mentions légales</a></li>
+            </ul>
+        </div>
+
+        <div class="legal-section">
+            <p><em>Dernière mise à jour : {{ "now"|date("d/m/Y") }}</em></p>
+        </div>
+    </div>
 </div>
+
+<style>
+.legal-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.legal-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.legal-section {
+    margin-bottom: 2rem;
+}
+
+.legal-section h2 {
+    color: #2c3e50;
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 0.5rem;
+}
+
+.legal-section h3 {
+    color: #34495e;
+    font-size: 1.1rem;
+    margin-bottom: 0.8rem;
+    margin-top: 1.5rem;
+}
+
+.legal-section h4 {
+    color: #2c3e50;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    margin-top: 1rem;
+}
+
+.legal-section p {
+    margin-bottom: 0.8rem;
+    line-height: 1.6;
+}
+
+.legal-section ul, .legal-section ol {
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.legal-section li {
+    margin-bottom: 0.4rem;
+}
+
+.legal-section a {
+    color: #3498db;
+    text-decoration: none;
+}
+
+.legal-section a:hover {
+    text-decoration: underline;
+}
+
+.legal-section a[target="_blank"]:after {
+    content: " (nouvelle fenêtre)";
+    font-size: 0.9em;
+    color: #666;
+}
+
+.cookie-table {
+    overflow-x: auto;
+    margin: 1rem 0;
+}
+
+.cookie-table table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.cookie-table th,
+.cookie-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #f1f1f1;
+}
+
+.cookie-table th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+    color: #2c3e50;
+    border-bottom: 2px solid #e9ecef;
+}
+
+.cookie-table tr:hover {
+    background-color: #f8f9fa;
+}
+
+.cookie-table tr:last-child td {
+    border-bottom: none;
+}
+
+@media (max-width: 768px) {
+    .legal-content {
+        padding: 1rem;
+    }
+    
+    .legal-section h2 {
+        font-size: 1.2rem;
+    }
+    
+    .legal-section h3 {
+        font-size: 1rem;
+    }
+    
+    .cookie-table table {
+        font-size: 0.9rem;
+    }
+    
+    .cookie-table th,
+    .cookie-table td {
+        padding: 8px 10px;
+    }
+}
+</style>
 {% endblock %} 

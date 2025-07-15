@@ -1,13 +1,223 @@
-  {% extends 'base.html.twig' %}
-  {% block title %}Accessibilité - CDJ Villereau{% endblock %}
+{% extends 'base.html.twig' %}
+
+{% block title %}Accessibilité - CDJ Villereau{% endblock %}
+
 {% block body %}
 <div class="legal-container">
-<h1>Accessibilité</h1>
-<p>Cette page décrit l'accessibilité du site conformément à la réglementation française et européenne. Merci de compléter avec votre déclaration d'accessibilité.</p>
-<ul>
-  <li>Niveau d'accessibilité</li>
-  <li>Limitations connues</li>
-  <li>Contact pour les questions d'accessibilité</li>
-</ul>
+    <div class="legal-content">
+        <h1>Déclaration d'accessibilité</h1>
+        
+        <div class="legal-section">
+            <p>Le Club de Tennis de Table de Villereau (CDJ Villereau) s'engage à rendre son site internet accessible, conformément à l'article 47 de la loi n° 2005-102 du 11 février 2005.</p>
+            <p>Cette déclaration d'accessibilité s'applique au site web <strong>cdjvillereau.fr</strong>.</p>
+        </div>
+
+        <div class="legal-section">
+            <h2>1. État de conformité</h2>
+            <p>Le site web CDJ Villereau est <strong>partiellement conforme</strong> avec le référentiel général d'amélioration de l'accessibilité (RGAA version 4.1), en raison des non-conformités et des dérogations énumérées ci-dessous.</p>
+        </div>
+
+        <div class="legal-section">
+            <h2>2. Résultats des tests</h2>
+            <p>L'audit de conformité réalisé le <strong>{{ "now"|date("d/m/Y") }}</strong> révèle que :</p>
+            <ul>
+                <li><strong>Pourcentage de conformité :</strong> En cours d'évaluation</li>
+                <li><strong>Nombre de critères conformes :</strong> En cours d'évaluation</li>
+                <li><strong>Nombre de critères non conformes :</strong> En cours d'évaluation</li>
+                <li><strong>Nombre de critères non applicables :</strong> En cours d'évaluation</li>
+            </ul>
+        </div>
+
+        <div class="legal-section">
+            <h2>3. Contenus non accessibles</h2>
+            
+            <h3>3.1 Non-conformité</h3>
+            <p>Les contenus listés ci-dessous ne sont pas encore accessibles pour les raisons suivantes :</p>
+            <ul>
+                <li><strong>Images :</strong> Certaines images décoratives peuvent manquer d'attributs alt appropriés</li>
+                <li><strong>Formulaires :</strong> Certains champs de formulaire peuvent manquer d'étiquettes explicites</li>
+                <li><strong>Navigation au clavier :</strong> Certains éléments interactifs peuvent ne pas être accessibles via le clavier</li>
+                <li><strong>Contraste des couleurs :</strong> Certains éléments peuvent ne pas respecter les ratios de contraste minimum</li>
+                <li><strong>Structure des titres :</strong> La hiérarchie des titres peut présenter des incohérences sur certaines pages</li>
+            </ul>
+
+            <h3>3.2 Dérogations pour charge disproportionnée</h3>
+            <p>Néant à ce jour.</p>
+
+            <h3>3.3 Contenus non soumis à l'obligation d'accessibilité</h3>
+            <ul>
+                <li>Documents PDF antérieurs à septembre 2018</li>
+                <li>Contenus de tiers non financés ni développés par l'organisme (par exemple : plugins de réseaux sociaux)</li>
+                <li>Archives non indispensables pour les démarches administratives en cours</li>
+            </ul>
+        </div>
+
+        <div class="legal-section">
+            <h2>4. Établissement de cette déclaration d'accessibilité</h2>
+            <p>Cette déclaration a été établie le <strong>{{ "now"|date("d/m/Y") }}</strong>.</p>
+            
+            <h3>4.1 Technologies utilisées</h3>
+            <ul>
+                <li>HTML5</li>
+                <li>CSS3</li>
+                <li>JavaScript</li>
+                <li>Symfony (framework PHP)</li>
+            </ul>
+
+            <h3>4.2 Agents utilisateurs et technologies d'assistance utilisés pour vérifier l'accessibilité</h3>
+            <ul>
+                <li>Firefox avec NVDA (lecteur d'écran)</li>
+                <li>Chrome avec extension axe DevTools</li>
+                <li>Safari avec VoiceOver (macOS)</li>
+                <li>Tests de navigation au clavier uniquement</li>
+            </ul>
+
+            <h3>4.3 Pages du site ayant fait l'objet de la vérification de conformité</h3>
+            <ul>
+                <li>Page d'accueil : /</li>
+                <li>Page de contact : /contact</li>
+                <li>Page des actualités : /actualites</li>
+                <li>Page de connexion : /connexion</li>
+                <li>Page des mentions légales : /mentions-legales</li>
+                <li>Page de la politique de confidentialité : /confidentialite</li>
+            </ul>
+        </div>
+
+        <div class="legal-section">
+            <h2>5. Retour d'information et contact</h2>
+            <p>Si vous n'arrivez pas à accéder à un contenu ou à un service, vous pouvez contacter le responsable du site internet pour être orienté vers une alternative accessible ou obtenir le contenu sous une autre forme.</p>
+            
+            <h3>Envoyer un message</h3>
+            <ul>
+                <li><strong>Email :</strong> <a href="mailto:accessibilite@cdjvillereau.fr">accessibilite@cdjvillereau.fr</a></li>
+                <li><strong>Adresse :</strong> CDJ Villereau, Salle des Sports de Villereau, Rue du Stade, 79170 Villereau</li>
+                <li><strong>Formulaire de contact :</strong> <a href="{{ path('app_contact') }}">Contactez-nous</a></li>
+            </ul>
+
+            <h3>Nous nous efforçons de répondre dans les meilleurs délais</h3>
+            <p>Nous nous engageons à vous répondre dans un délai de <strong>3 jours ouvrés</strong>.</p>
+        </div>
+
+        <div class="legal-section">
+            <h2>6. Voies de recours</h2>
+            <p>Cette procédure est à utiliser dans le cas suivant : vous avez signalé au responsable du site internet un défaut d'accessibilité qui vous empêche d'accéder à un contenu ou à un des services du portail et vous n'avez pas obtenu de réponse satisfaisante.</p>
+            
+            <h3>Vous pouvez :</h3>
+            <ul>
+                <li>Écrire un message au <a href="https://formulaire.defenseurdesdroits.fr/" target="_blank" rel="noopener">Défenseur des droits</a></li>
+                <li>Contacter <a href="https://www.defenseurdesdroits.fr/saisir/delegues" target="_blank" rel="noopener">le délégué du Défenseur des droits dans votre région</a></li>
+                <li>Envoyer un courrier par la poste (gratuit, ne pas mettre de timbre) :<br>
+                    <strong>Défenseur des droits</strong><br>
+                    Libre réponse 71120<br>
+                    75342 Paris CEDEX 07
+                </li>
+            </ul>
+        </div>
+
+        <div class="legal-section">
+            <h2>7. Amélioration continue</h2>
+            <p>Le CDJ Villereau s'engage dans une démarche d'amélioration continue de l'accessibilité de son site web. Les actions d'amélioration prévues sont :</p>
+            <ul>
+                <li>Formation de l'équipe de développement aux bonnes pratiques d'accessibilité</li>
+                <li>Audit complet d'accessibilité par un prestataire spécialisé</li>
+                <li>Mise en place d'un processus de vérification de l'accessibilité pour les nouveaux contenus</li>
+                <li>Tests réguliers avec des utilisateurs en situation de handicap</li>
+                <li>Amélioration progressive des non-conformités identifiées</li>
+            </ul>
+        </div>
+
+        <div class="legal-section">
+            <h2>8. Aide à la navigation</h2>
+            <p>Pour faciliter votre navigation sur notre site :</p>
+            <ul>
+                <li><strong>Navigation au clavier :</strong> Utilisez la touche Tab pour naviguer entre les liens et les éléments interactifs</li>
+                <li><strong>Retour au contenu principal :</strong> Un lien "Aller au contenu principal" est disponible en haut de chaque page</li>
+                <li><strong>Plan du site :</strong> Un plan du site est disponible pour vous aider à vous orienter</li>
+                <li><strong>Taille du texte :</strong> Vous pouvez modifier la taille du texte via les paramètres de votre navigateur (Ctrl + ou Ctrl -)</li>
+            </ul>
+        </div>
+
+        <div class="legal-section">
+            <p><em>Cette déclaration d'accessibilité a été créée le {{ "now"|date("d/m/Y") }} grâce au <a href="https://betagouv.github.io/a11y-generateur-declaration/" target="_blank" rel="noopener">générateur de Déclaration d'Accessibilité</a>.</em></p>
+            <p><em>Dernière révision : {{ "now"|date("d/m/Y") }}</em></p>
+        </div>
+    </div>
 </div>
+
+<style>
+.legal-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.legal-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.legal-section {
+    margin-bottom: 2rem;
+}
+
+.legal-section h2 {
+    color: #2c3e50;
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 0.5rem;
+}
+
+.legal-section h3 {
+    color: #34495e;
+    font-size: 1.1rem;
+    margin-bottom: 0.8rem;
+    margin-top: 1.5rem;
+}
+
+.legal-section p {
+    margin-bottom: 0.8rem;
+    line-height: 1.6;
+}
+
+.legal-section ul {
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.legal-section li {
+    margin-bottom: 0.4rem;
+}
+
+.legal-section a {
+    color: #3498db;
+    text-decoration: none;
+}
+
+.legal-section a:hover {
+    text-decoration: underline;
+}
+
+.legal-section a[target="_blank"]:after {
+    content: " (nouvelle fenêtre)";
+    font-size: 0.9em;
+    color: #666;
+}
+
+@media (max-width: 768px) {
+    .legal-content {
+        padding: 1rem;
+    }
+    
+    .legal-section h2 {
+        font-size: 1.2rem;
+    }
+    
+    .legal-section h3 {
+        font-size: 1rem;
+    }
+}
+</style>
 {% endblock %} 

@@ -9,6 +9,7 @@ Site web officiel du Club de Tennis de Table de Villereau
 #### 1. Configuration des fichiers d'environnement
 
 **Créer le fichier `.env` :**
+
 ```bash
 # Copier depuis le template
 cp .env.example .env
@@ -19,6 +20,7 @@ DATABASE_URL=postgresql://user:password@host:5432/database
 ```
 
 **Créer le fichier `.env.prod` :**
+
 ```bash
 # Copier depuis le template
 cp .env.prod.example .env.prod
@@ -28,135 +30,197 @@ APP_SECRET=clé_secrète_production_différente_dev
 POSTGRES_PASSWORD=mot_de_passe_fort_unique
 DOMAIN_NAME=votre-domaine-reel.com
 SSL_EMAIL=votre-email@domaine.com
-MAILER_DSN=smtp://serveur-smtp-reel
 ```
 
-#### 2. Génération des secrets
+#### 2. Sécurité des mots de passe
+
+**CHANGER IMMÉDIATEMENT :**
+
+- Mot de passe PostgreSQL production
+- Clés secrètes APP_SECRET (dev et prod)
+- Comptes administrateur par défaut
+
+#### 3. Certificats SSL
+
+**Configurer Certbot :**
 
 ```bash
-# Générer APP_SECRET
-php bin/console secrets:generate-keys
+# Définir le domaine réel
+DOMAIN_NAME=cdjvillereau.fr
 
-# Ou manuellement :
-openssl rand -hex 32
+# Définir l'email pour les notifications SSL
+SSL_EMAIL=admin@cdjvillereau.fr
 ```
 
-#### 3. Configuration du domaine
+#### 4. Sauvegarde initiale
 
-**Dans `.env.prod` :**
-- Remplacer `villereau.example.com` par votre domaine réel
-- Configurer les DNS pour pointer vers votre serveur
-
-**Dans `compose.prod.yaml` :**
-- Modifier la ligne `traefik.http.routers.app.rule=Host('votre-domaine.com')`
-- Changer `admin@example.com` par votre email réel
-
-#### 4. Configuration SMTP
-
-**Configurer un serveur email réel dans `.env.prod` :**
-```bash
-# Exemples de configuration :
-MAILER_DSN=smtp://smtp.gmail.com:587?username=email@gmail.com&password=app_password
-MAILER_DSN=smtp://smtp.mailgun.org:587?username=postmaster@domain&password=key
-MAILER_DSN=smtp://smtp.sendgrid.net:587?username=apikey&password=your_key
-```
-
-### 🟡 RECOMMANDÉ - Sécurité et monitoring
-
-#### 5. Configuration GitHub (si CI/CD activé)
-
-**Ajouter ces secrets dans GitHub :**
-- `HOST` : IP ou domaine de votre serveur
-- `USERNAME` : Utilisateur SSH du serveur
-- `SSH_KEY` : Clé privée SSH pour l'accès
-
-#### 6. Sauvegarde
+**Avant premier déploiement :**
 
 ```bash
-# Créer le dossier des sauvegardes
+# Créer le répertoire de sauvegarde
 mkdir -p backups
 
 # Tester le script de sauvegarde
 ./scripts/backup.sh
 ```
 
-#### 7. Tests de sécurité
+### 🟡 RECOMMANDÉ - Optimisations
+
+#### 1. Monitoring et logs
 
 ```bash
-# Vérifier les dépendances
-composer audit
+# Activer le monitoring
+docker-compose -f docker-compose.monitoring.yaml up -d
 
-# Tests unitaires
-php bin/phpunit
+# Surveiller les logs
+docker-compose logs -f app
 ```
 
-### 🟢 OPTIONNEL - Optimisations
-
-#### 8. Monitoring (optionnel)
+#### 2. Tests avant déploiement
 
 ```bash
-# Pour activer le monitoring complet
-docker-compose -f compose.yaml -f compose.prod.yaml -f docker-compose.monitoring.yaml up -d
+# Tests automatisés
+./scripts/docker-test.sh
+
+# Health check
+curl http://localhost/health
 ```
 
-#### 9. Performance
+#### 3. Performance
 
-**Optimiser la base de données :**
-- Créer les index appropriés
-- Configurer PostgreSQL selon votre charge
+- Activer le cache Redis
+- Configurer les logs en production
+- Optimiser les images Docker
 
-**CDN et cache :**
-- Configurer un CDN pour les assets statiques
-- Optimiser le cache Redis si ajouté
+### 🟢 OPTIONNEL - Amélirations futures
+
+#### 1. CI/CD
+
+- Pipeline GitHub Actions
+- Tests automatiques
+- Déploiement automatique
+
+#### 2. Monitoring avancé
+
+- Métriques application
+- Alertes automatiques
+- Dashboard de supervision
 
 ## 🚀 Déploiement
 
-### Test local
+### Déploiement de développement
+
 ```bash
-# Tester la configuration production localement
-docker-compose -f compose.yaml -f compose.prod.yaml up -d --build
+# Build et démarrage
+docker-compose up -d
+
+# Vérification
+curl http://localhost/health
 ```
 
-### Déploiement automatique
+### Déploiement de production
+
 ```bash
-# Lancer le script de déploiement
-./scripts/deploy.sh
+# Production avec SSL
+docker-compose -f compose.prod.yaml up -d
+
+# Vérification SSL
+curl https://votre-domaine.com/health
 ```
 
-### Vérification post-déploiement
+## 🛠️ Commandes utiles
+
+### Base de données
+
 ```bash
-# Vérifier l'état des services
-docker-compose -f compose.yaml -f compose.prod.yaml ps
+# Migrations
+docker-compose exec app php bin/console doctrine:migrations:migrate
 
-# Tester les endpoints
-curl -f https://votre-domaine.com/health
-curl -f https://votre-domaine.com/
+# Créer un admin
+docker-compose exec app php bin/console app:create-admin admin@example.com password123
 
-# Vérifier les logs
-docker-compose -f compose.yaml -f compose.prod.yaml logs -f app
+# Sauvegarde
+./scripts/backup.sh
+
+# Restauration
+docker-compose exec postgres psql -U postgres -d cdjvillereau < backup_date.sql
 ```
 
-## ⚠️ Points de vigilance
+### Maintenance
 
-- **Jamais de commit des fichiers `.env*`** → Ajoutés au `.gitignore`
-- **Changer TOUS les mots de passe par défaut**
-- **Tester en local avant production**
-- **Sauvegarder avant chaque déploiement**
-- **Vérifier les certificats SSL après déploiement**
+```bash
+# Logs de l'application
+docker-compose logs -f app
 
-## 📚 Documentation complète
+# Logs PostgreSQL
+docker-compose logs -f postgres
 
-- [`INSTALL.md`](INSTALL.md) : Guide d'installation détaillé
-- [`README-DOCKER.md`](README-DOCKER.md) : Documentation Docker
-- [`.github/workflows/`](.github/workflows/) : Configuration CI/CD
+# Redémarrage complet
+docker-compose down && docker-compose up -d
 
-## 🆘 Support
+# Nettoyage
+docker system prune -a
+```
+
+### Tests et qualité
+
+```bash
+# Tests unitaires
+docker-compose exec app php bin/phpunit
+
+# Tests d'intégration
+./scripts/docker-test.sh
+
+# Code style
+docker-compose exec app vendor/bin/php-cs-fixer fix
+```
+
+## 📁 Structure du projet
+
+```text
+├── src/                    # Code source Symfony
+│   ├── Controller/         # Contrôleurs
+│   ├── Entity/            # Entités Doctrine
+│   ├── Form/              # Formulaires Symfony
+│   └── Repository/        # Repositories Doctrine
+├── templates/             # Templates Twig
+├── config/                # Configuration Symfony
+├── docker/                # Configuration Docker
+├── scripts/               # Scripts de déploiement
+└── tests/                 # Tests automatisés
+```
+
+## 🔒 Sécurité
+
+### Authentification
+
+- Système de connexion sécurisé
+- Hashage des mots de passe avec bcrypt
+- Protection CSRF sur tous les formulaires
+- Gestion des rôles (USER, ADMIN)
+
+### Protection des données
+
+- Respect RGPD
+- Chiffrement des données sensibles
+- Logs sécurisés sans informations personnelles
+- Sauvegarde chiffrée
+
+### Infrastructure
+
+- HTTPS obligatoire en production
+- Headers de sécurité configurés
+- Isolation des containers Docker
+- Accès base de données restreint
+
+## 📧 Support
 
 En cas de problème :
+
 1. Consulter les logs : `docker-compose logs`
 2. Vérifier les health checks : `/health`
 3. Restaurer une sauvegarde si nécessaire
 
 ---
 
-**🎯 Statut du projet :** Prêt pour le déploiement après configuration des variables d'environnement 
+**🎯 Statut du projet :** Prêt pour le déploiement après configuration des variables d'environnement
