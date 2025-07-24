@@ -4,25 +4,18 @@
 
 {% block body %}
 <div class="rencontres-section">
-    <div class="mon-espace-container">
-        <div class="mon-espace-row">
-            <div class="mon-espace-col">
+    <div class="rencontres-wrapper">
+        <div class="rencontres-content">
                 <div class="mon-espace-header">
                     <h1 class="mon-espace-title">Matchs à venir</h1>
                     <div class="mon-espace-decorative-line"></div>
                 </div>
                 
-                <div class="mon-espace-rencontres-header">
-                    <div class="mon-espace-header-card">
-                        <h2 class="mon-espace-header-title">
-                            <i class="fas fa-calendar-alt mon-espace-calendar-icon"></i>Prochaines Rencontres
-                        </h2>
-                        <div class="mon-espace-decorative-dots">
-                            <span class="decorative-dot blue"></span>
-                            <span class="decorative-dot purple"></span>
-                            <span class="decorative-dot violet"></span>
-                        </div>
-                    </div>
+                <div class="rencontres-header-centered">
+                    <h2 class="rencontres-main-title">
+                        <i class="fas fa-calendar-alt"></i>
+                        Prochaines Rencontres
+                    </h2>
                 </div>
             
             {% if rencontres is empty %}
@@ -35,53 +28,75 @@
                 </div>
             {% else %}
                 <div class="rencontres-grid">
-                    <div class="decorative-element top-left"></div>
-                    <div class="decorative-element bottom-right"></div>
                     {% for rencontre in rencontres %}
-                    <div class="rencontre-card-container">
-                        <div class="mon-espace-rencontre-card">
-                            <div class="mon-espace-card-body">
-                                <div class="mon-espace-rencontre-content">
-                                    {% if rencontre.equipe %}
-                                        <h4 class="mon-espace-equipe">{{ rencontre.equipe }}</h4>
-                                    {% endif %}
-                                    <h6 class="mon-espace-adversaire">
-                                        <i class="fas fa-shield-alt mon-espace-shield-icon"></i>{{ rencontre.adversaire }}
-                                    </h6>
-                                    <h6 class="mon-espace-date">
-                                        {% set jour = rencontre.date|date('N') %}
-                                        {% set joursFr = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'] %}
-                                        {% set mois = rencontre.date|date('n') %}
-                                        {% set moisFr = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'] %}
-                                        {{ joursFr[jour - 1] }} {{ rencontre.date|date('j') }} {{ moisFr[mois - 1] }}
-                                    </h6>
-                                    <p class="mon-espace-heure">{{ rencontre.heure }}</p>
-                                    <p class="mon-espace-lieu">
-                                        {% if rencontre.lieu == 'Domicile' %}
-                                            <i class="fas fa-home mon-espace-lieu-icon"></i>{{ rencontre.lieu }}
-                                        {% else %}
-                                            <i class="fas fa-plane mon-espace-lieu-icon"></i>{{ rencontre.lieu }}
-                                        {% endif %}
-                                    </p>
+                    <div class="rencontre-card">
+                        <div class="rencontre-card-header">
+                            {% if rencontre.equipe %}
+                                <h3 class="rencontre-equipe">{{ rencontre.equipe }}</h3>
+                            {% endif %}
+                            <div class="rencontre-vs">
+                                <span class="vs-text">VS</span>
+                            </div>
+                            <h3 class="rencontre-adversaire">{{ rencontre.adversaire }}</h3>
+                        </div>
+                        
+                        <div class="rencontre-card-body">
+                            <div class="rencontre-info-grid">
+                                <div class="rencontre-info-item">
+                                    <i class="fas fa-calendar-alt"></i>
+                                    <div class="rencontre-info-content">
+                                        <span class="rencontre-info-label">Date</span>
+                                        <span class="rencontre-info-value">
+                                            {% set jour = rencontre.date|date('N') %}
+                                            {% set joursFr = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'] %}
+                                            {% set mois = rencontre.date|date('n') %}
+                                            {% set moisFr = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'] %}
+                                            {{ joursFr[jour - 1] }} {{ rencontre.date|date('j') }} {{ moisFr[mois - 1] }}
+                                        </span>
+                                    </div>
                                 </div>
                                 
-                                {% if rencontre.joueurs|length > 0 %}
-                                    <div class="rencontre-joueurs">
-                                        <small class="mon-espace-joueurs-count">{{ rencontre.joueurs|length }} joueur(s)</small>
-                                        <div class="mon-espace-joueurs-list">
-                                            {% for joueur in rencontre.joueurs %}
-                                                <span class="mon-espace-joueur-badge">{{ joueur.firstName }} {{ joueur.lastName|slice(0, 1) }}.</span>
-                                            {% endfor %}
-                                        </div>
+                                <div class="rencontre-info-item">
+                                    <i class="fas fa-clock"></i>
+                                    <div class="rencontre-info-content">
+                                        <span class="rencontre-info-label">Heure</span>
+                                        <span class="rencontre-info-value">{{ rencontre.heure }}</span>
                                     </div>
-                                {% endif %}
+                                </div>
+                                
+                                <div class="rencontre-info-item">
+                                    {% if rencontre.lieu == 'Domicile' %}
+                                        <i class="fas fa-home"></i>
+                                    {% else %}
+                                        <i class="fas fa-plane"></i>
+                                    {% endif %}
+                                    <div class="rencontre-info-content">
+                                        <span class="rencontre-info-label">Lieu</span>
+                                        <span class="rencontre-info-value">{{ rencontre.lieu }}</span>
+                                    </div>
+                                </div>
                             </div>
+                            
+                            {% if rencontre.joueurs|length > 0 %}
+                                <div class="rencontre-joueurs-section">
+                                    <h4 class="rencontre-joueurs-title">
+                                        <i class="fas fa-users"></i>
+                                        Joueurs sélectionnés ({{ rencontre.joueurs|length }})
+                                    </h4>
+                                    <div class="rencontre-joueurs-list">
+                                        {% for joueur in rencontre.joueurs %}
+                                            <span class="rencontre-joueur-badge">
+                                                {{ joueur.firstName }} {{ joueur.lastName|slice(0, 1) }}.
+                                            </span>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            {% endif %}
                         </div>
                     </div>
                     {% endfor %}
                 </div>
             {% endif %}
-            </div>
         </div>
     </div>
 </div>
