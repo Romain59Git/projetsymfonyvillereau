@@ -11,6 +11,7 @@
 ### 1. Configuration des variables d'environnement
 
 Créez le fichier `.env` pour le développement :
+
 ```bash
 # Environment
 APP_ENV=dev
@@ -31,6 +32,7 @@ UPLOAD_PATH=/public/uploads
 ```
 
 Créez le fichier `.env.prod` pour la production :
+
 ```bash
 # Environment
 APP_ENV=prod
@@ -123,12 +125,14 @@ docker-compose exec database psql -U username -d database < backup.sql
 ## 🆘 Dépannage
 
 ### Logs
+
 ```bash
 docker-compose logs app
 docker-compose logs database
 ```
 
 ### Reset complet
+
 ```bash
 docker-compose down -v
 docker-compose build --no-cache
@@ -136,6 +140,7 @@ docker-compose up -d
 ```
 
 ### Tests
+
 ```bash
 docker-compose exec app php bin/phpunit
 ``` 

@@ -81,6 +81,7 @@ docker-compose up -d
 ## 📊 Fonctionnalités incluses
 
 ### Production
+
 - ✅ Image Alpine (légère et sécurisée)
 - ✅ PHP 8.4 avec extensions nécessaires
 - ✅ Nginx + PHP-FPM supervisés
@@ -92,6 +93,7 @@ docker-compose up -d
 - ✅ Mise à jour automatique (Watchtower)
 
 ### Développement
+
 - ✅ Hot reload du code
 - ✅ Xdebug configuré
 - ✅ MailPit pour tester les emails
