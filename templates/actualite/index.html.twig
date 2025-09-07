@@ -7,30 +7,32 @@
     <h1>Actualités</h1>
     
     {% if articles|length > 0 %}
-        {% for article in articles %}
-            <article class="article-card">
-                {% if article.image %}
-                    <div class="article-image-container">
-                        <img src="{{ asset('image/' ~ article.image) }}" 
-                             alt="{{ article.title }}" 
-                             class="article-image">
-                    </div>
-                {% endif %}
-                
-                <div class="article-content">
-                    <h2 class="article-title">{{ article.title }}</h2>
-                    
-                    <div class="article-meta">
-                        <i class="fas fa-calendar"></i>
-                        Publié le {{ article.createdAt|date('d/m/Y') }}
+        <div class="articles-grid">
+            {% for article in articles %}
+                <article class="article-card">
+                    <div class="article-content">
+                        <h2 class="article-title">{{ article.title }}</h2>
+                        
+                        <div class="article-meta">
+                            <i class="fas fa-calendar"></i>
+                            Publié le {{ article.createdAt|date('d/m/Y') }}
+                        </div>
+                        
+                        <div class="article-text">
+                            {{ article.content|raw }}
+                        </div>
                     </div>
                     
-                    <div class="article-text">
-                        {{ article.content|raw }}
-                    </div>
-                </div>
-            </article>
-        {% endfor %}
+                    {% if article.image %}
+                        <div class="article-image-container">
+                            <img src="{{ asset('image/' ~ article.image) }}" 
+                                 alt="{{ article.title }}" 
+                                 class="article-image">
+                        </div>
+                    {% endif %}
+                </article>
+            {% endfor %}
+        </div>
     {% else %}
         <div class="no-articles">
             <i class="fas fa-newspaper fa-3x mb-3"></i>

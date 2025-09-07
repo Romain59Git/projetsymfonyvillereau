@@ -23,7 +23,7 @@ services:
   # Base de données avec port exposé
   database:
     ports:
-      - "5432:5432"  # Port exposé pour accès direct (dev uniquement)
+      - "3306:3306"  # Port exposé pour accès direct (dev uniquement)
 
   # Mailer de développement (MailPit)
   mailer:

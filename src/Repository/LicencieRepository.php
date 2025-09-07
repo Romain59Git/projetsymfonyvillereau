@@ -40,4 +40,5 @@ class LicencieRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
 }
