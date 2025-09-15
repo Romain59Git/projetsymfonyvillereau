@@ -13,7 +13,7 @@ final class ActualiteController extends AbstractController
     public function index(ArticleRepository $articleRepository): Response
     {
         return $this->render('actualite/index.html.twig', [
-            'articles' => $articleRepository->findBy([], ['createdAt' => 'DESC']),
+            'articles' => $articleRepository->findLatest(),
         ]);
     }
 }

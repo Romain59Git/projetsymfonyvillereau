@@ -31,7 +31,7 @@ class ArticleTypeForm extends AbstractType
             ])
             ->add('image', FileType::class, [
                 'label' => 'Image',
-                'mapped' => true,
+                'mapped' => false,
                 'required' => false,
                 'constraints' => [
                     new File([
